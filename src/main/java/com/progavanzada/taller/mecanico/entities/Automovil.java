@@ -21,15 +21,15 @@ public class Automovil {
     /**
      * El modelo de este vehículo específico.
      */
-    @OneToOne(targetEntity = Modelo.class)
-    @Column(nullable = false)
+    @OneToOne(targetEntity = Modelo.class, optional = false)
+    @MapsId
     private Modelo model;
    
     /**
      * El dueño de este vehículo. Debe ser siempre una persona de tipo cliente.
      */
-    @OneToOne(targetEntity = Persona.class)
-    @Column(nullable = false)
+    @OneToOne(targetEntity = Persona.class, optional = false)
+    @MapsId
     private Persona client;
     
     /**
