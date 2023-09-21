@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 /**
- * Representa una marca de automóvil dentro del dominio del negocio.
+ * Representa una marca de automóvil
  */
 @Entity
 @Table(name = "tm_marcas")
