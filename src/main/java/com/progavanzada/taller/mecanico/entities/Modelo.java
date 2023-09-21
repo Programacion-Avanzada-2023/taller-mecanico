@@ -32,8 +32,8 @@ public class Modelo {
     /**
      * La marca a la cual pertenece este modelo.
      */
-    @OneToOne(targetEntity = Marca.class)
-    @Column(nullable = false)
+    @OneToOne(targetEntity = Marca.class, optional = false)
+    @MapsId
     private Marca brand;
 
     /**

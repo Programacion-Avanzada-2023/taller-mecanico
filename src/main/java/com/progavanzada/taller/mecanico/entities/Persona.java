@@ -52,8 +52,8 @@ public class Persona {
      * El rol asignado a esta persona, lo distingue entre un técnico o un
      * cliente.
      */
-    @OneToOne(optional = false, targetEntity = Rol.class)
-    @Column(nullable = false)
+    @OneToOne(targetEntity = Rol.class, optional = false)
+    @MapsId
     private Rol rol;
    
     /**
