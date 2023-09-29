@@ -16,26 +16,26 @@ public class Automovil {
      */
     @Id
     @GeneratedValue
-    private Integer id;
+    public Integer id;
    
     /**
      * El modelo de este vehículo específico.
      */
     @OneToOne(targetEntity = Modelo.class, optional = false)
     @MapsId
-    private Modelo model;
+    public Modelo model;
    
     /**
      * El dueño de este vehículo. Debe ser siempre una persona de tipo cliente.
      */
     @OneToOne(targetEntity = Persona.class, optional = false)
     @MapsId
-    private Persona client;
+    public Persona client;
     
     /**
      * La patente del vehículo (o dominio).
      */
     @Pattern(regexp = RegExPatterns.ArgentineLicensePlate, message = "El formato introducido de patente no es válido.")
     @Column(nullable = false, length = 8)
-    private String licensePlate;
+    public String licensePlate;
 }

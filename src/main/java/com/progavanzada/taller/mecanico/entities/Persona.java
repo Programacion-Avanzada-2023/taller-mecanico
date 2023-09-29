@@ -21,7 +21,7 @@ public class Persona {
      */
     @Id
     @GeneratedValue
-    private Integer id;
+    public Integer id;
 
     /**
      * El nombre legal de la persona.
@@ -29,7 +29,7 @@ public class Persona {
     @Size(max = 32, message = "El nombre no puede exceder los 32 caractéres en longitud.")
     @Pattern(regexp = RegExPatterns.OnlyLetters_CI, message = "Un nombre solo puede tener letras, espacios y guiones.")
     @Column(nullable = false, length = 32)
-    private String name;
+    public String name;
 
     /**
      * El apellido legal de la persona
@@ -37,7 +37,7 @@ public class Persona {
     @Size(max = 32, message = "El apellido no puede exceder los 32 caractéres en longitud.")
     @Pattern(regexp = RegExPatterns.OnlyLetters_CI, message = "Un apellido solo puede tener letras, espacios y guiones.")
     @Column(nullable = false, length = 32)
-    private String surName;
+    public String surName;
 
     /**
      * El Documento Nacional de Indentidad (DNI) de la persona. Este debe ser
@@ -46,7 +46,7 @@ public class Persona {
     @Min(value = 1_000_000)
     @Max(value = 999_999_999)
     @Column(nullable = false, unique = true)
-    private Integer dni;
+    public Integer dni;
 
     /**
      * El rol asignado a esta persona, lo distingue entre un técnico o un
@@ -54,7 +54,7 @@ public class Persona {
      */
     @OneToOne(targetEntity = Rol.class, optional = false)
     @MapsId
-    private Rol rol;
+    public Rol rol;
    
     /**
      * Opcional.
@@ -64,7 +64,7 @@ public class Persona {
     @Size(max = 64, message = "Una calle no puede tener más de 64 caracteres.")
     @Pattern(regexp = RegExPatterns.OnlyLetters_CI, message = "Un nombre de calle solo puede tener letras, espacios y guiones.")
     @Column(nullable = true)
-    private String street;
+    public String street;
    
     /**
      * Opcional.
@@ -74,7 +74,7 @@ public class Persona {
     @Min(value = 0)
     @Max(value = 9_999)
     @Column(nullable = true)
-    private Integer streetNumber;
+    public Integer streetNumber;
    
     /**
      * Opcional.
@@ -84,7 +84,7 @@ public class Persona {
     @PhoneNumberConstraint(isoCode = "AR")
     @Convert(converter = PhoneNumberConverter.class)
     @Column(nullable = true, length = 32)
-    private String phoneNumber;
+    public String phoneNumber;
    
     /**
      * Opcional.
@@ -94,5 +94,5 @@ public class Persona {
     @Size(max = 64, message = "El correo electrónico introducido es demasiado largo.")
     @Pattern(regexp = RegExPatterns.EmailAddress, message = "El correo electrónico introducido es inválido.")
     @Column(nullable = true, length = 64)
-    private String email;
+    public String email;
 }

@@ -19,7 +19,7 @@ public class Modelo {
      */
     @Id
     @GeneratedValue
-    private Integer id;
+    public Integer id;
 
     /**
      * El nombre legal de la persona.
@@ -27,14 +27,14 @@ public class Modelo {
     @Size(max = 32, message = "El nombre no puede exceder los 32 caractéres en longitud.")
     @Pattern(regexp = RegExPatterns.OnlyLetters_CI, message = "Un nombre solo puede tener letras, espacios y guiones.")
     @Column(nullable = false, length = 32)
-    private String name;
+    public String name;
 
     /**
      * La marca a la cual pertenece este modelo.
      */
     @OneToOne(targetEntity = Marca.class, optional = false)
     @MapsId
-    private Marca brand;
+    public Marca brand;
 
     /**
      * El año el cuál se impartió este modelo específico de automóvil.
@@ -42,5 +42,5 @@ public class Modelo {
     @Min(value = 1800)
     @Max(value = 9999)
     @Column(nullable = false)
-    private Integer year;
+    public Integer year;
 }

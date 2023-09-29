@@ -15,12 +15,12 @@ public class Rol {
      */
     @Id
     @GeneratedValue
-    private Integer id;
+    public Integer id;
 
     /**
      * El nombre visual del rol.
      */
     @Size(max = 32, message = "El nombre de un rol debe ser corto (menor a 32 caracteres)")
     @Column(nullable = false, length = 32)
-    private String name;
+    public String name;
 }

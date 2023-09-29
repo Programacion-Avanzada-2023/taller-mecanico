@@ -17,7 +17,7 @@ public class Marca {
      */
     @Id
     @GeneratedValue
-    private Integer id;
+    public Integer id;
 
     /**
      * Un nombre visual sobre que marca es.
@@ -25,5 +25,5 @@ public class Marca {
     @Size(max = 32, message = "El nombre de una marca no puede superar los 32 caractéres.")
     @Pattern(regexp = RegExPatterns.OnlyLetters_CI, message = "Los nombres de una marca solo pueden tener letras, espacios y guiones.")
     @Column(nullable = false, length = 32)
-    private String name;
+    public String name;
 }
