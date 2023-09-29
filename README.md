@@ -28,5 +28,5 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
 ## Docker
 Si no se precisa de MySQL instalado previamente, se puede correr un contenedor usando Docker. Puede tomar de referencia este comando de shell para levantar su propio contenedor.
 ```bash
-$ docker run --name mysql -e MYSQL_ROOT_PASSWORD=test123 -d mysql:latest
+$ docker run --name mysql -e MYSQL_ROOT_PASSWORD=test123 -d -p 3306:3306 mysql:latest
 ```
