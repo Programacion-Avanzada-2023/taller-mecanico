@@ -1,15 +1,19 @@
+package com.progavanzada.taller.mecanico.entities;
 
-import com.progavanzada.taller.mecanico.entities.Persona;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "tm_cliente")
-public class Cliente{
-    
+@Table(name = "tm_clientes")
+public class Cliente {
+
+    @Id
+    @GeneratedValue
+    public Integer id;
+
     @OneToOne(targetEntity = Persona.class, optional = false)
     @MapsId
     public Persona person;
-    
+
     public Integer getLicenciaConducir() {
         // Obtener la licencia de conducir desde la persona
         if (person != null) {
@@ -19,5 +23,3 @@ public class Cliente{
         }
     }
 }
-
-
