@@ -30,3 +30,12 @@ Si no se precisa de MySQL instalado previamente, se puede correr un contenedor u
 ```bash
 $ docker run --name mysql -e MYSQL_ROOT_PASSWORD=test123 -d -p 3306:3306 mysql:latest
 ```
+
+Luego se entra a la instancia y se crea la base de datos de la siguiente forma:
+```bash
+# Entrar con shell al contenedor de mysql y correr el CLI
+# Va a pedir contraseña, usar "test123" si se corrió el comando de arriba como estaba
+$ docker exec -it mysql mysql -u root -p
+# Crear base de datos, cambiar el nombre a lo que se necesite
+$ mysql> CREATE DATABASE taller;
+```
