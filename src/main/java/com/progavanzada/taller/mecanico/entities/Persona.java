@@ -95,4 +95,8 @@ public class Persona {
     @Pattern(regexp = RegExPatterns.EmailAddress, message = "El correo electrónico introducido es inválido.")
     @Column(nullable = true, length = 64)
     public String email;
+
+    public Integer getDni() {
+        return this.dni;
+    }
 }
