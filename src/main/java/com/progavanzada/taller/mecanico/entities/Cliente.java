@@ -13,7 +13,11 @@ public class Cliente {
     @OneToOne(targetEntity = Persona.class, optional = false)
     @MapsId
     public Persona person;
-
+    
+    @OneToOne(mappedBy = "client") // La propiedad "client" se refiere al campo "client" en la clase "Automovil"
+    @MapsId
+    private Automovil automovil;
+    
     public Integer getLicenciaConducir() {
         // Obtener la licencia de conducir desde la persona
         if (person != null) {
@@ -21,5 +25,9 @@ public class Cliente {
         } else {
             return null; // O maneja el caso cuando persona es nula
         }
+    }
+    
+    public Automovil getAutomovil() {
+        return automovil;
     }
 }
