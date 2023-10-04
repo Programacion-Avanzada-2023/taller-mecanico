@@ -44,11 +44,4 @@ public class OrdenDeTrabajo {
     @MapsId
     private Servicio Servicio;
     
-    /**
-     * El cliente puede subir un archivo para tener una mejor idea del servicio 
-     * que se realizara
-     */
-    
-    private String archivoAdjunto;
-    
 }
