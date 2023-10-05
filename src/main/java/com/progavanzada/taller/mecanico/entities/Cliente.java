@@ -14,7 +14,7 @@ public class Cliente {
     @MapsId
     public Persona person;
     
-    @OneToOne(mappedBy = "client") // La propiedad "client" se refiere al campo "client" en la clase "Automovil"
+    @OneToOne(targetEntity= Automovil.class, optional=false) // La propiedad "client" se refiere al campo "client" en la clase "Automovil"
     @MapsId
     private Automovil automovil;
     
