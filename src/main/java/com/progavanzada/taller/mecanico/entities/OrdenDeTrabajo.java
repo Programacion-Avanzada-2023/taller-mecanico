@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "tm_OrdenDeTrabajo")
 public class OrdenDeTrabajo {
-    
+
     /**
      * ID único representativo de la orden.
      */
