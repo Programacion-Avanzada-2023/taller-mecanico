@@ -1,6 +1,6 @@
 package com.progavanzada.taller.mecanico.repositories;
 
-import com.progavanzada.taller.mecanico.entities.Cliente;
+import com.progavanzada.taller.mecanico.entities.Persona;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
  * @author Usuario
  */
 @Repository
-public interface PersonaRepository extends JpaRepository<Cliente, Integer> {
+public interface PersonaRepository extends JpaRepository<Persona, Integer> {
 
 }
