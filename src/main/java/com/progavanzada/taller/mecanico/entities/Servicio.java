@@ -1,6 +1,9 @@
 package com.progavanzada.taller.mecanico.entities;
 
+import com.progavanzada.taller.mecanico.entities.objects.RegExPatterns;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 /**
  *
@@ -14,7 +17,12 @@ public class Servicio {
      */
     @Id
     @GeneratedValue
-    private Integer id;
+    public Integer id;
     
-    private String descripcion;
+    @Size(max = 500, message = "La descripcion del servicio no puede superar los 32 caractéres.")
+    @Pattern(regexp = RegExPatterns.OnlyLetters_CI, message = "La descripcion del servicio solo pueden tener letras, espacios y guiones.")
+    @Column(nullable = false, length = 500)
+    public String descripcion;
+    
+    
 }

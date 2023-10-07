@@ -14,34 +14,50 @@ public class OrdenDeTrabajo {
      */
     @Id
     @GeneratedValue
-    private Integer id;
+    public Integer id;
     /**
      * El modelo de este vehículo específico.
      * Dentro del modelo estara el año del modelo
      */
     @OneToOne(targetEntity = Modelo.class, optional = false)
     @MapsId
-    private Modelo model;
-   
+    public Modelo model;
+    
+    public Modelo getModelo() {
+        return model;
+    }
     /**
      * El dueño de este vehículo. Debe ser siempre una persona de tipo cliente.
      */
-    @OneToOne(targetEntity = Persona.class, optional = false)
+    @OneToOne(targetEntity = Cliente.class, optional = false)
     @MapsId
-    private Persona client;
+    public Cliente client;
     
+    public Cliente getCliente() {
+        return client;
+    }
     /**
      * Vehiculo al que se le realiza la orden de trabajo
      */
     @OneToOne(targetEntity = Automovil.class, optional = false)
     @MapsId
-    private Automovil automovil;
+    public Automovil automovil;
+    
+    public Automovil getAutomovil() {
+        return automovil;
+    }
     
     /**
      * los servicios que solicitara el cliente
      */
     @OneToOne(targetEntity = Servicio.class, optional = false)
     @MapsId
-    private Servicio Servicio;
+    public Servicio servicio;
+    
+    public Servicio getServicio() {
+        return servicio;
+    }
+    
+    
     
 }

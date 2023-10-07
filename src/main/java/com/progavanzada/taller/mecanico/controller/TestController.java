@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
 @RestController
 @RequestMapping(path = "/test")
 public class TestController {
@@ -17,9 +18,11 @@ public class TestController {
     private PersonaRepository repo;
 
     @PostMapping(path = "guido")
+    
     public Cliente test() {
-        Optional<Cliente> cliente = this.repo.findById(0);
+        OptionalCliente cliente = this.repo.findById(0);
 
         return cliente.get();
     }
 }
+* /
