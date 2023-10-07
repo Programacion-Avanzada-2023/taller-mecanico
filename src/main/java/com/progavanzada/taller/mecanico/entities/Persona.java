@@ -50,14 +50,6 @@ public class Persona {
     public Integer dni;
 
     /**
-     * El rol asignado a esta persona, lo distingue entre un técnico o un
-     * cliente.
-     */
-    @OneToOne(targetEntity = Rol.class, optional = false)
-    @MapsId
-    public Rol rol;
-
-    /**
      * Opcional.
      *
      * El nombre de la calle a donde tiene domicilio esta persona.
