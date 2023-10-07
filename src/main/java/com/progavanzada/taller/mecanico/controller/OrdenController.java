@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author yukal
  */
 @RestController
-@RequestMapping(path = "/OrdenDeTrabajo")
+@RequestMapping(path = "/ordenes")
 public class OrdenController {
 
     @Autowired
@@ -52,7 +52,7 @@ public class OrdenController {
      * Lo que quiero hacer es crear la nueva orden de trabajo, utilizando el post y como 
      * vi por internet, se debe hacer algo asi
      */
-    @PostMapping(path ="/nueva_Orden")
+    @PostMapping(path ="/")
     public OrdenDeTrabajo createOrden(@RequestBody OrdenDeTrabajo newOrden) {
         // Guarda la nueva Orden de Trabajo en la base de datos
         return this.repo.save(newOrden);

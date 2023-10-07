@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author yukal
  */
 @RestController
-@RequestMapping(path = "/Persona")
+@RequestMapping(path = "/personas")
 public class PersonaController {
 
     @Autowired

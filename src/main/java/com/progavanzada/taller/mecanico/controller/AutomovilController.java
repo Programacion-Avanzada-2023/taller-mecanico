@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author yukal
  */
 @RestController
-@RequestMapping(path = "/Automovil")
+@RequestMapping(path = "/automoviles")
 public class AutomovilController {
 
     @Autowired

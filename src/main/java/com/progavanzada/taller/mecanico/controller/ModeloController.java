@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author yukal
  */
 @RestController
-@RequestMapping(path = "/Modelo")
+@RequestMapping(path = "/modelos")
 public class ModeloController {
 
     @Autowired

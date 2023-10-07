@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author yukal
  */
 @RestController
-@RequestMapping(path = "/Cliente")
+@RequestMapping(path = "/clientes")
 public class ClienteController {
 
     @Autowired
