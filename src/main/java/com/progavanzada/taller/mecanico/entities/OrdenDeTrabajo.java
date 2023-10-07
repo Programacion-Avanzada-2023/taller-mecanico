@@ -1,5 +1,6 @@
 package com.progavanzada.taller.mecanico.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 /**
@@ -14,7 +15,7 @@ public class OrdenDeTrabajo {
      * ID único representativo de la orden.
      */
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Integer id;
     /**
      * El modelo de este vehículo específico. Dentro del modelo estara el año
@@ -63,5 +64,6 @@ public class OrdenDeTrabajo {
      * Flag que denota si la entidad fue eliminada o no.
      */
     @Column(nullable = false)
+    @JsonIgnore
     public boolean eliminado = false;
 }

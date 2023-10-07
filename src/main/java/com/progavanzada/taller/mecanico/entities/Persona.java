@@ -1,5 +1,6 @@
 package com.progavanzada.taller.mecanico.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.progavanzada.taller.mecanico.entities.objects.RegExPatterns;
 import com.progavanzada.taller.mecanico.entities.pipes.PhoneNumberConstraint;
 import com.progavanzada.taller.mecanico.entities.pipes.PhoneNumberConverter;
@@ -20,7 +21,7 @@ public class Persona {
      * ID único representativo de la persona.
      */
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Integer id;
 
     /**
@@ -100,6 +101,7 @@ public class Persona {
      * Flag que denota si la entidad fue eliminada o no.
      */
     @Column(nullable = false)
+    @JsonIgnore
     public boolean eliminado = false;
 
     public Integer getDni() {

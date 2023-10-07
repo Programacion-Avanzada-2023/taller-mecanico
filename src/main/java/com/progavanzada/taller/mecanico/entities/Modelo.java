@@ -1,5 +1,6 @@
 package com.progavanzada.taller.mecanico.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.progavanzada.taller.mecanico.entities.objects.RegExPatterns;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
@@ -18,7 +19,7 @@ public class Modelo {
      * ID único representativo del modelo.
      */
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Integer id;
 
     /**
@@ -48,5 +49,6 @@ public class Modelo {
      * Flag que denota si la entidad fue eliminada o no.
      */
     @Column(nullable = false)
+    @JsonIgnore
     public boolean eliminado = false;
 }

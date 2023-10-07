@@ -1,5 +1,6 @@
 package com.progavanzada.taller.mecanico.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.progavanzada.taller.mecanico.entities.objects.RegExPatterns;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
@@ -17,7 +18,7 @@ public class Servicio {
      * ID único representativo del servicio.
      */
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Integer id;
 
     @Size(max = 500, message = "La descripcion del servicio no puede superar los 32 caractéres.")
@@ -29,6 +30,7 @@ public class Servicio {
      * Flag que denota si la entidad fue eliminada o no.
      */
     @Column(nullable = false)
+    @JsonIgnore
     public boolean eliminado = false;
 
 }

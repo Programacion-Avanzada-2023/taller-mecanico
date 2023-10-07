@@ -1,5 +1,6 @@
 package com.progavanzada.taller.mecanico.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -7,7 +8,7 @@ import jakarta.persistence.*;
 public class Cliente {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Integer id;
 
     @OneToOne(targetEntity = Persona.class, optional = false)
@@ -22,6 +23,7 @@ public class Cliente {
      * Flag que denota si la entidad fue eliminada o no.
      */
     @Column(nullable = false)
+    @JsonIgnore
     public boolean eliminado = false;
 
     public Integer getLicenciaConducir() {
