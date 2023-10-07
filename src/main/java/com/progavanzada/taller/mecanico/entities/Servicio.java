@@ -11,7 +11,7 @@ import jakarta.validation.constraints.Size;
  * @author yukal
  */
 @Entity
-@Table(name = "tm_servicio")
+@Table(name = "tm_servicios")
 public class Servicio {
 
     /**

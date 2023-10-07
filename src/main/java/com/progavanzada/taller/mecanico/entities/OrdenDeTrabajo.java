@@ -8,7 +8,7 @@ import jakarta.persistence.*;
  * @author yukal
  */
 @Entity
-@Table(name = "tm_OrdenDeTrabajo")
+@Table(name = "tm_ordenes")
 public class OrdenDeTrabajo {
 
     /**
