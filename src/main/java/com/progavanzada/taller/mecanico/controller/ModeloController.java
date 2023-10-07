@@ -22,7 +22,7 @@ public class ModeloController {
     private ModeloRepository repo;
 
     @GetMapping
-    public List<Modelo> getModelo() {
+    public List<Modelo> getModelos() {
         return this.repo.findAll();
     }
 

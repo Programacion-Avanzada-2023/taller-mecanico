@@ -22,7 +22,7 @@ public class ServicioController {
     private ServicioRepository repo;
 
     @GetMapping
-    public List<Servicio> getServicio() {
+    public List<Servicio> getServicios() {
         return this.repo.findAll();
     }
 

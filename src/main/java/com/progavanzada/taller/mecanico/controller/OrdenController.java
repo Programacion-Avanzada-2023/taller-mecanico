@@ -24,7 +24,7 @@ public class OrdenController {
     private OrdenRepository repo;
 
     @GetMapping
-    public List<OrdenDeTrabajo> getOrdenDeTrabajo() {
+    public List<OrdenDeTrabajo> getOrdenesDeTrabajo() {
         return this.repo.findAll();
     }
 

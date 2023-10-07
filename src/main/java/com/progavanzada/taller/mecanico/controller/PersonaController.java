@@ -22,7 +22,7 @@ public class PersonaController {
     private PersonaRepository repo;
 
     @GetMapping
-    public List<Persona> getPersona() {
+    public List<Persona> getPersonas() {
         return this.repo.findAll();
     }
 

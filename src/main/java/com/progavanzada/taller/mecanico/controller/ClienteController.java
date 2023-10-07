@@ -22,7 +22,7 @@ public class ClienteController {
     private ClienteRepository repo;
 
     @GetMapping
-    public List<Cliente> getCliente() {
+    public List<Cliente> getClientes() {
         return this.repo.findAll();
     }
 

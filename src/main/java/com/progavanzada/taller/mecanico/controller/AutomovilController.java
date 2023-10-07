@@ -22,7 +22,7 @@ public class AutomovilController {
     private AutomovilRepository repo;
 
     @GetMapping
-    public List<Automovil> getAutomovil() {
+    public List<Automovil> getAutomoviles() {
         return this.repo.findAll();
     }
 
