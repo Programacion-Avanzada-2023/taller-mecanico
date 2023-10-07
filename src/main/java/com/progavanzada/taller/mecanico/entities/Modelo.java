@@ -43,4 +43,10 @@ public class Modelo {
     @Max(value = 9999)
     @Column(nullable = false)
     public Integer year;
+
+    /**
+     * Flag que denota si la entidad fue eliminada o no.
+     */
+    @Column(nullable = false)
+    public boolean eliminado = false;
 }

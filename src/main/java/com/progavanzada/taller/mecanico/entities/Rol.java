@@ -23,4 +23,10 @@ public class Rol {
     @Size(max = 32, message = "El nombre de un rol debe ser corto (menor a 32 caracteres)")
     @Column(nullable = false, length = 32)
     public String name;
+
+    /**
+     * Flag que denota si la entidad fue eliminada o no.
+     */
+    @Column(nullable = false)
+    public boolean eliminado = false;
 }

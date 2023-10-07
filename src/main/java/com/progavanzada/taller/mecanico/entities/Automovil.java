@@ -38,4 +38,10 @@ public class Automovil {
     @Pattern(regexp = RegExPatterns.ArgentineLicensePlate, message = "El formato introducido de patente no es válido.")
     @Column(nullable = false, length = 8)
     public String licensePlate;
+   
+    /**
+     * Flag que denota si la entidad fue eliminada o no.
+     */
+    @Column(nullable = false)
+    public boolean eliminado = false;
 }

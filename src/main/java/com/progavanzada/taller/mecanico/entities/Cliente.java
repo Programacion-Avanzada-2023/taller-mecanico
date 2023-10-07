@@ -13,11 +13,17 @@ public class Cliente {
     @OneToOne(targetEntity = Persona.class, optional = false)
     @MapsId
     public Persona person;
-    
-    @OneToOne(targetEntity= Automovil.class, optional=false) // La propiedad "client" se refiere al campo "client" en la clase "Automovil"
+
+    @OneToOne(targetEntity = Automovil.class, optional = false) // La propiedad "client" se refiere al campo "client" en la clase "Automovil"
     @MapsId
     private Automovil automovil;
-    
+
+    /**
+     * Flag que denota si la entidad fue eliminada o no.
+     */
+    @Column(nullable = false)
+    public boolean eliminado = false;
+
     public Integer getLicenciaConducir() {
         // Obtener la licencia de conducir desde la persona
         if (person != null) {
@@ -26,7 +32,7 @@ public class Cliente {
             return null; // O maneja el caso cuando persona es nula
         }
     }
-    
+
     public Automovil getAutomovil() {
         return automovil;
     }

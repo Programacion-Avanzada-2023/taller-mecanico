@@ -1,6 +1,7 @@
 package com.progavanzada.taller.mecanico.entities;
 
 import jakarta.persistence.*;
+
 /**
  *
  * @author yukal
@@ -16,13 +17,13 @@ public class OrdenDeTrabajo {
     @GeneratedValue
     public Integer id;
     /**
-     * El modelo de este vehículo específico.
-     * Dentro del modelo estara el año del modelo
+     * El modelo de este vehículo específico. Dentro del modelo estara el año
+     * del modelo
      */
     @OneToOne(targetEntity = Modelo.class, optional = false)
     @MapsId
     public Modelo model;
-    
+
     public Modelo getModelo() {
         return model;
     }
@@ -32,7 +33,7 @@ public class OrdenDeTrabajo {
     @OneToOne(targetEntity = Cliente.class, optional = false)
     @MapsId
     public Cliente client;
-    
+
     public Cliente getCliente() {
         return client;
     }
@@ -42,22 +43,25 @@ public class OrdenDeTrabajo {
     @OneToOne(targetEntity = Automovil.class, optional = false)
     @MapsId
     public Automovil automovil;
-    
+
     public Automovil getAutomovil() {
         return automovil;
     }
-    
+
     /**
      * los servicios que solicitara el cliente
      */
     @OneToOne(targetEntity = Servicio.class, optional = false)
     @MapsId
     public Servicio servicio;
-    
+
     public Servicio getServicio() {
         return servicio;
     }
-    
-    
-    
+
+    /**
+     * Flag que denota si la entidad fue eliminada o no.
+     */
+    @Column(nullable = false)
+    public boolean eliminado = false;
 }

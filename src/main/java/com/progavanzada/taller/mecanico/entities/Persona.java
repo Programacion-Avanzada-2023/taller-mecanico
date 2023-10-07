@@ -55,27 +55,27 @@ public class Persona {
     @OneToOne(targetEntity = Rol.class, optional = false)
     @MapsId
     public Rol rol;
-   
+
     /**
      * Opcional.
-     * 
+     *
      * El nombre de la calle a donde tiene domicilio esta persona.
      */
     @Size(max = 64, message = "Una calle no puede tener más de 64 caracteres.")
     @Pattern(regexp = RegExPatterns.OnlyLetters_CI, message = "Un nombre de calle solo puede tener letras, espacios y guiones.")
     @Column(nullable = true)
     public String street;
-   
+
     /**
      * Opcional.
-     * 
+     *
      * La altura (numérica) a donde tiene domicilio la calle de esta persona.
      */
     @Min(value = 0)
     @Max(value = 9_999)
     @Column(nullable = true)
     public Integer streetNumber;
-   
+
     /**
      * Opcional.
      *
@@ -85,16 +85,22 @@ public class Persona {
     @Convert(converter = PhoneNumberConverter.class)
     @Column(nullable = true, length = 32)
     public String phoneNumber;
-   
+
     /**
      * Opcional.
-     * 
+     *
      * El correo electrónico de la persona.
      */
     @Size(max = 64, message = "El correo electrónico introducido es demasiado largo.")
     @Pattern(regexp = RegExPatterns.EmailAddress, message = "El correo electrónico introducido es inválido.")
     @Column(nullable = true, length = 64)
     public String email;
+
+    /**
+     * Flag que denota si la entidad fue eliminada o no.
+     */
+    @Column(nullable = false)
+    public boolean eliminado = false;
 
     public Integer getDni() {
         return this.dni;
