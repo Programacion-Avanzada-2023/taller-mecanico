@@ -11,6 +11,6 @@ public class PersonaDto {
     public Integer dni;
     public String street;
     public Integer streetNumber;
-    public Integer phoneNumber;
+    public String phoneNumber;
     public String email;
 }
