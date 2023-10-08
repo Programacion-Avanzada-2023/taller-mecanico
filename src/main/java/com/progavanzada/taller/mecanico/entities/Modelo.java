@@ -25,8 +25,8 @@ public class Modelo {
     /**
      * El nombre legal de la persona.
      */
-    @Size(max = 32, message = "El nombre no puede exceder los 32 caractéres en longitud.")
-    @Pattern(regexp = RegExPatterns.OnlyLetters_CI, message = "Un nombre solo puede tener letras, espacios y guiones.")
+    @Size(min = 4, max = 32, message = "El nombre de modelo no puede exceder los 32 caractéres en longitud.")
+    @Pattern(regexp = RegExPatterns.OnlyLetters_CI, message = "Un nombre de modelo solo puede tener letras, espacios y guiones.")
     @Column(nullable = false, length = 32)
     public String name;
 
