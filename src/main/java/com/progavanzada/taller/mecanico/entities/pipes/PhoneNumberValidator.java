@@ -23,6 +23,8 @@ public class PhoneNumberValidator implements ConstraintValidator<PhoneNumberCons
     
     @Override
     public boolean isValid(String phoneNumber, ConstraintValidatorContext ctx) {
+        if (phoneNumber == null) return true;
+        
         // Crear instancia del parser de la API de Google.
         PhoneNumberUtil phone = PhoneNumberUtil.getInstance();
         
