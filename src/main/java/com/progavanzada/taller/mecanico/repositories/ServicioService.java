@@ -1,17 +1,16 @@
 package com.progavanzada.taller.mecanico.repositories;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.progavanzada.taller.mecanico.controller.dto.ServicioUpdateDto;
 import com.progavanzada.taller.mecanico.entities.Servicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author yukal
  */
-
-@JsonIgnoreProperties(ignoreUnknown = true)
+@Service
 public class ServicioService {
     @Autowired
     @Lazy

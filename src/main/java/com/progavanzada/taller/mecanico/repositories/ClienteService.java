@@ -4,11 +4,13 @@ import com.progavanzada.taller.mecanico.controller.dto.ClienteUpdateDto;
 import com.progavanzada.taller.mecanico.entities.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Guido
  */
+@Service
 public class ClienteService implements ClienteRepositoryCustom {
     
     @Autowired
