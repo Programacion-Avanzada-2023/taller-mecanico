@@ -27,7 +27,7 @@ public class Servicio {
     @NotNull
     public String name;
 
-    @Size(max = 512, message = "La descripcion del servicio no puede superar los 512 caractéres.")
+    @Size(min = 4, max = 512, message = "La descripcion del servicio no puede superar los 512 caractéres.")
     @Column(nullable = false, length = 512)
     @NotNull
     public String descripcion;

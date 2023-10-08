@@ -23,7 +23,7 @@ public class Automovil {
     /**
      * El modelo de este vehículo específico.
      */
-    @OneToOne(targetEntity = Modelo.class, optional = false)
+    @ManyToOne(targetEntity = Modelo.class, optional = false)
     @JoinColumn(name = "modelo_id")
     @NotNull
     public Modelo model;

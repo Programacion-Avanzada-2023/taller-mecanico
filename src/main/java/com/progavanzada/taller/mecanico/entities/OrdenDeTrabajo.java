@@ -15,45 +15,19 @@ import java.util.List;
 public class OrdenDeTrabajo {
 
     /**
-     * ID único representativo de la orden.
+     * ID único representativo de la orden (UUID);
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    public Integer id;
-    /**
-     * El modelo de este vehículo específico. Dentro del modelo estara el año
-     * del modelo
-     */
-    @OneToOne(targetEntity = Modelo.class, optional = false)
-    @MapsId
-    @NotNull
-    public Modelo model;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    public String id;
 
-    public Modelo getModelo() {
-        return model;
-    }
-    /**
-     * El dueño de este vehículo. Debe ser siempre una persona de tipo cliente.
-     */
-    @OneToOne(targetEntity = Cliente.class, optional = false)
-    @MapsId
-    @NotNull
-    public Cliente client;
-
-    public Cliente getCliente() {
-        return client;
-    }
     /**
      * Vehiculo al que se le realiza la orden de trabajo
      */
-    @OneToOne(targetEntity = Automovil.class, optional = false)
-    @MapsId
+    @ManyToOne(targetEntity = Automovil.class, optional = false)
+    @JoinColumn(name = "automovil_id")
     @NotNull
     public Automovil automovil;
-
-    public Automovil getAutomovil() {
-        return automovil;
-    }
 
     /**
      * Opcional.
@@ -67,14 +41,24 @@ public class OrdenDeTrabajo {
     /**
      * los servicios que solicitara el cliente
      */
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "orden_services_id")
+    @ManyToMany
+    @JoinColumn(name = "servicio_id")
     @NotNull
     public List<Servicio> servicios;
 
-    public List<Servicio> getServicios() {
-        return servicios;
-    }
+    /**
+     * Fecha de creación de la orden de trabajo ISO8601, calculada automáticamente.
+     */
+    @Column(nullable = false)
+    public String fechaCreacion = java.time.LocalDateTime.now().toString();
+    
+    /**
+     * TODO: No implementado para esta entrega.
+     *
+     * Fecha de la última modificación de la orden.
+     */
+    @Column(nullable = false)
+    public String fechaModificacion = java.time.LocalDateTime.now().toString();
 
     /**
      * Flag que denota si la entidad fue eliminada o no.
