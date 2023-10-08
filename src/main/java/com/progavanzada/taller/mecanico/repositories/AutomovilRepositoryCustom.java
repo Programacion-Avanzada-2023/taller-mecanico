@@ -1,5 +1,7 @@
 package com.progavanzada.taller.mecanico.repositories;
 
+import com.progavanzada.taller.mecanico.controller.dto.AutomovilCreateDto;
+import com.progavanzada.taller.mecanico.controller.dto.AutomovilDto;
 import com.progavanzada.taller.mecanico.controller.dto.AutomovilUpdateDto;
 import com.progavanzada.taller.mecanico.entities.Automovil;
 
@@ -14,7 +16,7 @@ public interface AutomovilRepositoryCustom {
      * @param entity
      * @return 
      */
-    Automovil actualizarAutomovil(AutomovilUpdateDto dto, Automovil entity);
+    AutomovilDto actualizarAutomovil(AutomovilUpdateDto dto, Automovil entity);
     
     /**
      * 
@@ -22,4 +24,13 @@ public interface AutomovilRepositoryCustom {
      * @return 
      */
     boolean borrarAutomovil (Automovil entity);
+    
+    /**
+     * Crear un nuevo automovil del dominio.
+     *
+     * @param dto El DTO de creacion.
+     * 
+     * @return El automovil creado.
+     */
+    AutomovilDto crearAutomovil(AutomovilCreateDto dto);
 }

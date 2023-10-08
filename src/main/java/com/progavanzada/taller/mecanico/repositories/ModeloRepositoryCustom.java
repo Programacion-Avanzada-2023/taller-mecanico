@@ -4,6 +4,8 @@
  */
 package com.progavanzada.taller.mecanico.repositories;
 
+import com.progavanzada.taller.mecanico.controller.dto.ModeloCreateDto;
+import com.progavanzada.taller.mecanico.controller.dto.ModeloDto;
 import com.progavanzada.taller.mecanico.controller.dto.ModeloUpdateDto;
 import com.progavanzada.taller.mecanico.entities.Modelo;
 
@@ -17,7 +19,7 @@ public interface ModeloRepositoryCustom {
      * @param entity
      * @return 
      */
-    Modelo actualizarModelo(ModeloUpdateDto dto, Modelo entity);
+    ModeloDto actualizarModelo(ModeloUpdateDto dto, Modelo entity);
     
     /**
      * 
@@ -25,4 +27,13 @@ public interface ModeloRepositoryCustom {
      * @return 
      */
     boolean borrarModelo(Modelo entity);
+    
+    /**
+     * Crea un nuevo modelo en la base de datos.
+     *
+     * @param dto El DTO para la creación.
+     * 
+     * @return El modelo creado.
+     */
+    ModeloDto crearModelo(ModeloCreateDto dto);
 }

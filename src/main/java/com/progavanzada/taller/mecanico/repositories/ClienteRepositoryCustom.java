@@ -1,5 +1,7 @@
 package com.progavanzada.taller.mecanico.repositories;
 
+import com.progavanzada.taller.mecanico.controller.dto.ClienteCreateDto;
+import com.progavanzada.taller.mecanico.controller.dto.ClienteDto;
 import com.progavanzada.taller.mecanico.controller.dto.ClienteUpdateDto;
 import com.progavanzada.taller.mecanico.entities.Cliente;
 
@@ -16,4 +18,6 @@ public interface ClienteRepositoryCustom {
     */
     
     boolean borrarCliente(Cliente entity);
+    
+    ClienteDto crearCliente(ClienteCreateDto dto);
 }
