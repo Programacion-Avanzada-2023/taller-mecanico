@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -50,8 +51,12 @@ public class PersonaController {
      * @return La nueva persona creada.
      */
     @PostMapping
-    public Persona createPersona(@Valid @RequestBody Persona persona) {
-        return this.service.repo.save(persona);
+    public ResponseEntity<Persona> createPersona(@Valid @RequestBody Persona persona) {
+        // Para respetar el conversor de datos, primero guardamos.
+        Persona personaCreada = this.service.repo.save(persona);
+        
+        // Y devolvemos desde la base.
+        return ResponseEntity.status(HttpStatus.CREATED).body(personaCreada);
     }
 
     /**

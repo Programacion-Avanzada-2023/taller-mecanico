@@ -28,7 +28,7 @@ public class OrdenController {
 
     @GetMapping(path = "/{id}")
     public OrdenDeTrabajo getOrdenDeTrabajo(@PathVariable Integer id) {
-        return this.service.repo.findByIdAndEliminadoFalse();
+        return this.service.repo.findByIdAndEliminadoFalse(id);
     } 
     
     @PostMapping
@@ -39,7 +39,7 @@ public class OrdenController {
     @PatchMapping(path = "/{id}")
     public OrdenDeTrabajo updateOrden(@PathVariable Integer id, @Valid @RequestBody OrdenUpdateDto body) {
         // Buscar la entidad a modificar.
-        OrdenDeTrabajo orden = this.service.repo.findByIdAndEliminadoFalse();
+        OrdenDeTrabajo orden = this.service.repo.findByIdAndEliminadoFalse(id);
         
         // Si no hay marca, detener la ejecución y largar la excepción.
         if (orden == null)
@@ -52,7 +52,7 @@ public class OrdenController {
     @DeleteMapping(path = "/{id}")
     public boolean deleteOrden(@PathVariable Integer id) {
         // Buscar la entidad a borrar.
-        OrdenDeTrabajo orden = this.service.repo.findByIdAndEliminadoFalse();
+        OrdenDeTrabajo orden = this.service.repo.findByIdAndEliminadoFalse(id);
         
         // Si no hay marca, detener la ejecución y largar la excepción.
         if (orden == null)

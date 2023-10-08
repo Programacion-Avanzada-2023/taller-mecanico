@@ -7,14 +7,7 @@ import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 /**
@@ -34,7 +27,7 @@ public class ServicioController {
      * @return Un listado con todas las entidades.
      */
     @GetMapping
-    public List<Servicio> getServicio() {
+    public List<Servicio> getServicios() {
         return this.service.repo.findByEliminadoFalse();
     }
 
@@ -47,7 +40,7 @@ public class ServicioController {
      */
     @GetMapping(path = "/{id}")
     public Servicio getServicio(@PathVariable Integer id) {
-        return this.service.repo.findByIdAndEliminadoFalse();
+        return this.service.repo.findByIdAndEliminadoFalse(id);
     }
    
     /**
@@ -72,7 +65,7 @@ public class ServicioController {
     @PatchMapping(path = "/{id}")
     public Servicio updateServicio(@PathVariable Integer id, @Valid @RequestBody ServicioUpdateDto body) {
         // Buscar la entidad a modificar.
-        Servicio servicio = this.service.repo.findByIdAndEliminadoFalse();
+        Servicio servicio = this.service.repo.findByIdAndEliminadoFalse(id);
         
         // Si no hay servicio, detener la ejecución y largar la excepción.
         if (servicio == null)
@@ -90,9 +83,9 @@ public class ServicioController {
      * @return Verdadero si se logró el borrado.
      */
     @DeleteMapping(path = "/{id}")
-    public boolean deleteString(@PathVariable Integer id) {
+    public boolean deleteServicio(@PathVariable Integer id) {
         // Buscar la entidad a borrar.
-        Servicio servicio = this.service.repo.findByIdAndEliminadoFalse();
+        Servicio servicio = this.service.repo.findByIdAndEliminadoFalse(id);
         
         // Si no hay servicio, detener la ejecución y largar la excepción.
         if (servicio == null)

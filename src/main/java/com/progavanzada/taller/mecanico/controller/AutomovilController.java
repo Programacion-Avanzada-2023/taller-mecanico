@@ -1,14 +1,14 @@
 package com.progavanzada.taller.mecanico.controller;
 
+import com.progavanzada.taller.mecanico.controller.dto.AutomovilUpdateDto;
 import com.progavanzada.taller.mecanico.entities.Automovil;
-import com.progavanzada.taller.mecanico.repositories.AutomovilRepository;
+import com.progavanzada.taller.mecanico.repositories.AutomovilService;
+import jakarta.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 /**
  *
@@ -19,21 +19,82 @@ import org.springframework.web.bind.annotation.RestController;
 public class AutomovilController {
 
     @Autowired
-    private AutomovilRepository repo;
+    private AutomovilService service;
 
+        /**
+     * Busca todos los automoviles del dominio.
+     *
+     * @return Un listado con todas las entidades.
+     */
     @GetMapping
     public List<Automovil> getAutomoviles() {
-        return this.repo.findAll();
+        return this.service.repo.findByEliminadoFalse();
     }
 
+    /**
+     * Devuelve un automovil existente del dominio (si existe).
+     *
+     * @param id El ID de la entidad.
+     *
+     * @return La entidad, si no, null.
+     */
     @GetMapping(path = "/{id}")
     public Automovil getAutomovil(@PathVariable Integer id) {
-        // Ver si la Automovil existe.
-        Optional<Automovil> Automovil = this.repo.findById(id);
-        
-        if (Automovil.isEmpty()) return null;
-        
-        return Automovil.get();
+        return this.service.repo.findByIdAndEliminadoFalse(id);
+    }
+
+    /**
+     * Crea un nuevo automovil acorde al tipado de la entidad.
+     *
+     * @param automovil El cuerpo de un nuevo automovil.
+     *
+     * @return El nuevo automovil creado.
+     */
+    @PostMapping
+    public Automovil createAutomovil(@Valid @RequestBody Automovil automovil) {
+        return this.service.repo.save(automovil);
+    }
+
+    /**
+     * Modifica los campos de un Automovil existente.
+     *
+     * @param id El ID de la entidad a modificar.
+     *
+     * @return La entidad modificada.
+     */
+    @PatchMapping(path = "/{id}")
+    public Automovil updateAutomovil(@PathVariable Integer id, @Valid @RequestBody AutomovilUpdateDto body) {
+        // Buscar la entidad a modificar.
+        Automovil automovil = this.service.repo.findByIdAndEliminadoFalse(id);
+
+        // Si no hay persona, detener la ejecución y largar la excepción.
+        if (automovil == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "El automovil especificado no existe.", null);
+        }
+
+        // Aplicar las modificaciones.
+        return this.service.actualizarAutomovil(body, automovil);
+    }
+
+    /**
+     * Marca el borrado de una entidad de Automovil.
+     *
+     * @param id El ID de la entidad a marcar como eliminada.
+     *
+     * @return Verdadero si se logró el borrado.
+     */
+    @DeleteMapping(path = "/{id}")
+    public boolean deleteAutomovil(@PathVariable Integer id) {
+        // Buscar la entidad a borrar.
+        Automovil automovil = this.service.repo.findByIdAndEliminadoFalse(id);
+
+        // Si no hay automovil, detener la ejecución y largar la excepción.
+        if (automovil == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "El automovil especificado no existe.", null);
+        }
+
+        // Marcar como eliminada.
+        return this.service.borrarAutomovil(automovil);
     }
 }
 
