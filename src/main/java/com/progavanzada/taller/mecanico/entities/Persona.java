@@ -1,6 +1,8 @@
 package com.progavanzada.taller.mecanico.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.i18n.phonenumbers.NumberParseException;
+import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.progavanzada.taller.mecanico.entities.objects.RegExPatterns;
 import com.progavanzada.taller.mecanico.entities.pipes.PhoneNumberConstraint;
 import com.progavanzada.taller.mecanico.entities.pipes.PhoneNumberConverter;
@@ -79,14 +81,27 @@ public class Persona {
     public Integer streetNumber;
 
     /**
-     * Opcional.
-     *
      * El número de teléfono de la persona, en formato E.164
      */
     @PhoneNumberConstraint(isoCode = "AR")
     @Convert(converter = PhoneNumberConverter.class)
     @Column(nullable = true, length = 32)
+    @NotNull
     public String phoneNumber;
+
+    /**
+     * Hacky getter para que retorne correctamente el número de teléfono.
+     * @return 
+     */
+    public String getPhoneNumber() {
+        PhoneNumberUtil phone = PhoneNumberUtil.getInstance();
+
+        try {
+            return phone.format(phone.parse(this.phoneNumber, "AR"), PhoneNumberUtil.PhoneNumberFormat.E164);
+        } catch (NumberParseException e) {
+            return null;
+        }
+    }
 
     /**
      * Opcional.

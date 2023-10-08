@@ -5,6 +5,7 @@ import com.progavanzada.taller.mecanico.entities.objects.RegExPatterns;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
@@ -28,6 +29,7 @@ public class Modelo {
     @Size(min = 4, max = 32, message = "El nombre de modelo no puede exceder los 32 caractéres en longitud.")
     @Pattern(regexp = RegExPatterns.OnlyLetters_CI, message = "Un nombre de modelo solo puede tener letras, espacios y guiones.")
     @Column(nullable = false, length = 32)
+    @NotNull
     public String name;
 
     /**
@@ -35,6 +37,7 @@ public class Modelo {
      */
     @OneToOne(targetEntity = Marca.class, optional = false)
     @MapsId
+    @NotNull
     public Marca brand;
 
     /**
@@ -43,6 +46,7 @@ public class Modelo {
     @Min(value = 1800)
     @Max(value = 9999)
     @Column(nullable = false)
+    @NotNull
     public Integer year;
 
     /**

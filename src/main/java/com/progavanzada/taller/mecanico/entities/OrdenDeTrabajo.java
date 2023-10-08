@@ -2,6 +2,8 @@ package com.progavanzada.taller.mecanico.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  *
@@ -23,6 +25,7 @@ public class OrdenDeTrabajo {
      */
     @OneToOne(targetEntity = Modelo.class, optional = false)
     @MapsId
+    @NotNull
     public Modelo model;
 
     public Modelo getModelo() {
@@ -33,6 +36,7 @@ public class OrdenDeTrabajo {
      */
     @OneToOne(targetEntity = Cliente.class, optional = false)
     @MapsId
+    @NotNull
     public Cliente client;
 
     public Cliente getCliente() {
@@ -43,6 +47,7 @@ public class OrdenDeTrabajo {
      */
     @OneToOne(targetEntity = Automovil.class, optional = false)
     @MapsId
+    @NotNull
     public Automovil automovil;
 
     public Automovil getAutomovil() {
@@ -52,12 +57,13 @@ public class OrdenDeTrabajo {
     /**
      * los servicios que solicitara el cliente
      */
-    @OneToOne(targetEntity = Servicio.class, optional = false)
-    @MapsId
-    public Servicio servicio;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "orden_services_id")
+    @NotNull
+    public List<Servicio> servicios;
 
-    public Servicio getServicio() {
-        return servicio;
+    public List<Servicio> getServicios() {
+        return servicios;
     }
 
     /**

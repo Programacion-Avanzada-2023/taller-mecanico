@@ -2,6 +2,7 @@ package com.progavanzada.taller.mecanico.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tm_clientes")
@@ -13,10 +14,12 @@ public class Cliente {
 
     @OneToOne(targetEntity = Persona.class, optional = false)
     @MapsId
+    @NotNull
     public Persona person;
 
     @OneToOne(targetEntity = Automovil.class, optional = false) // La propiedad "client" se refiere al campo "client" en la clase "Automovil"
     @MapsId
+    @NotNull
     private Automovil automovil;
 
     /**

@@ -3,6 +3,7 @@ package com.progavanzada.taller.mecanico.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.progavanzada.taller.mecanico.entities.objects.RegExPatterns;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 /**
@@ -24,6 +25,7 @@ public class Automovil {
      */
     @OneToOne(targetEntity = Modelo.class, optional = false)
     @MapsId
+    @NotNull
     public Modelo model;
    
     /**
@@ -31,6 +33,7 @@ public class Automovil {
      */
     @OneToOne(targetEntity = Persona.class, optional = false)
     @MapsId
+    @NotNull
     public Persona client;
     
     /**
@@ -38,6 +41,7 @@ public class Automovil {
      */
     @Pattern(regexp = RegExPatterns.ArgentineLicensePlate, message = "El formato introducido de patente no es válido.")
     @Column(nullable = false, length = 8)
+    @NotNull
     public String licensePlate;
    
     /**
