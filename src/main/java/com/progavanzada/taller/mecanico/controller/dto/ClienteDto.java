@@ -8,6 +8,5 @@ public class ClienteDto {
 
     public Integer id;
     public PersonaDto person;
-    public AutomovilDto automovil;
 
 }

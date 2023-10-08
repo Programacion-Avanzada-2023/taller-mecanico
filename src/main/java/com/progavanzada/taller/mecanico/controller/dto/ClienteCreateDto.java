@@ -6,5 +6,4 @@ package com.progavanzada.taller.mecanico.controller.dto;
  */
 public class ClienteCreateDto {
     public Integer person;
-    public Integer automovil;
 }
