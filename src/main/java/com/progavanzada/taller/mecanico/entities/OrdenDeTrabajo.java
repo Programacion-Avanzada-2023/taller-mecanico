@@ -3,6 +3,7 @@ package com.progavanzada.taller.mecanico.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import java.util.List;
 
 /**
@@ -53,6 +54,15 @@ public class OrdenDeTrabajo {
     public Automovil getAutomovil() {
         return automovil;
     }
+
+    /**
+     * Opcional.
+     *
+     * Otros detalles relevantes con respecto a la orden de trabajo.
+     */
+    @Size(max = 512, message = "El mensaje insertado supera los 512 caractéres.")
+    @Column(nullable = true)
+    public String detalles = null;
 
     /**
      * los servicios que solicitara el cliente

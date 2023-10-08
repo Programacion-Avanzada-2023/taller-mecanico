@@ -13,14 +13,9 @@ public class Cliente {
     public Integer id;
 
     @OneToOne(targetEntity = Persona.class, optional = false)
-    @MapsId
+    @JoinColumn(name = "persona_id")
     @NotNull
     public Persona person;
-
-    @OneToOne(targetEntity = Automovil.class, optional = false) // La propiedad "client" se refiere al campo "client" en la clase "Automovil"
-    @MapsId
-    @NotNull
-    private Automovil automovil;
 
     /**
      * Flag que denota si la entidad fue eliminada o no.
@@ -36,9 +31,5 @@ public class Cliente {
         } else {
             return null; // O maneja el caso cuando persona es nula
         }
-    }
-
-    public Automovil getAutomovil() {
-        return automovil;
     }
 }

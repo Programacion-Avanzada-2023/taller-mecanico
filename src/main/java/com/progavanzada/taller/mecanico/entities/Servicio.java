@@ -21,10 +21,14 @@ public class Servicio {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Integer id;
+    
+    @Size(min = 4, max = 32, message = "El nombre no puede superar los 32 caractéres.")
+    @Column(nullable = false, length = 32)
+    @NotNull
+    public String name;
 
-    @Size(max = 500, message = "La descripcion del servicio no puede superar los 32 caractéres.")
-    @Pattern(regexp = RegExPatterns.OnlyLetters_CI, message = "La descripcion del servicio solo pueden tener letras, espacios y guiones.")
-    @Column(nullable = false, length = 500)
+    @Size(max = 512, message = "La descripcion del servicio no puede superar los 512 caractéres.")
+    @Column(nullable = false, length = 512)
     @NotNull
     public String descripcion;
 

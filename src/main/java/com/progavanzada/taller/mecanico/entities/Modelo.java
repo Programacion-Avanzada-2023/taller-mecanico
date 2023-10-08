@@ -1,6 +1,9 @@
 package com.progavanzada.taller.mecanico.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.progavanzada.taller.mecanico.entities.objects.RegExPatterns;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
@@ -35,8 +38,8 @@ public class Modelo {
     /**
      * La marca a la cual pertenece este modelo.
      */
-    @OneToOne(targetEntity = Marca.class, optional = false)
-    @MapsId
+    @ManyToOne(targetEntity = Marca.class, optional = false)
+    @JoinColumn(name = "marca_id")
     @NotNull
     public Marca brand;
 
