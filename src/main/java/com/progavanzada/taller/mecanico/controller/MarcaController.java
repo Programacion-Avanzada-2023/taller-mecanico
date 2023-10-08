@@ -3,6 +3,7 @@ package com.progavanzada.taller.mecanico.controller;
 import com.progavanzada.taller.mecanico.controller.dto.MarcaUpdateDto;
 import com.progavanzada.taller.mecanico.entities.Marca;
 import com.progavanzada.taller.mecanico.repositories.MarcaRepositoryImpl;
+import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -61,7 +62,7 @@ public class MarcaController {
      * @return La entidad modificada.
      */
     @PatchMapping(path = "/{id}")
-    public Marca updateMarca(@PathVariable Integer id, @RequestBody MarcaUpdateDto body) {
+    public Marca updateMarca(@PathVariable Integer id, @Valid @RequestBody MarcaUpdateDto body) {
         // Buscar la entidad a modificar.
         Marca marca = this.repoImplementation.repo.buscarPorId(id);
         
