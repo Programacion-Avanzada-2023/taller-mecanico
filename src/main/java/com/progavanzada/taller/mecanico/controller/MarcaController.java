@@ -2,7 +2,7 @@ package com.progavanzada.taller.mecanico.controller;
 
 import com.progavanzada.taller.mecanico.controller.dto.MarcaUpdateDto;
 import com.progavanzada.taller.mecanico.entities.Marca;
-import com.progavanzada.taller.mecanico.repositories.MarcaRepositoryImpl;
+import com.progavanzada.taller.mecanico.repositories.MarcaService;
 import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 public class MarcaController {
 
     @Autowired
-    private MarcaRepositoryImpl repoImplementation;
+    private MarcaService service;
 
     /**
      * Busca todas las marcas del dominio.
@@ -27,7 +27,7 @@ public class MarcaController {
      */
     @GetMapping
     public List<Marca> getMarcas() {
-        return this.repoImplementation.repo.buscarTodo();
+        return this.service.repo.buscarTodo();
     }
 
     /**
@@ -39,7 +39,7 @@ public class MarcaController {
      */
     @GetMapping(path = "/{id}")
     public Marca getMarca(@PathVariable Integer id) {
-        return this.repoImplementation.repo.buscarPorId(id);
+        return this.service.repo.buscarPorId(id);
     }
    
     /**
@@ -51,7 +51,7 @@ public class MarcaController {
      */
     @PostMapping
     public Marca createMarca(@RequestBody Marca marca) {
-        return this.repoImplementation.repo.save(marca);
+        return this.service.repo.save(marca);
     }
     
     /**
@@ -64,14 +64,14 @@ public class MarcaController {
     @PatchMapping(path = "/{id}")
     public Marca updateMarca(@PathVariable Integer id, @Valid @RequestBody MarcaUpdateDto body) {
         // Buscar la entidad a modificar.
-        Marca marca = this.repoImplementation.repo.buscarPorId(id);
+        Marca marca = this.service.repo.buscarPorId(id);
         
         // Si no hay marca, detener la ejecución y largar la excepción.
         if (marca == null)
            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La marca especificada no existe.", null);
         
         // Aplicar las modificaciones.
-        return this.repoImplementation.actualizarMarca(body, marca);
+        return this.service.actualizarMarca(body, marca);
     }
    
     /**
@@ -84,13 +84,13 @@ public class MarcaController {
     @DeleteMapping(path = "/{id}")
     public boolean deleteMarca(@PathVariable Integer id) {
         // Buscar la entidad a borrar.
-        Marca marca = this.repoImplementation.repo.buscarPorId(id);
+        Marca marca = this.service.repo.buscarPorId(id);
         
         // Si no hay marca, detener la ejecución y largar la excepción.
         if (marca == null)
            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La marca especificada no existe.", null);
         
         // Marcar como eliminada.
-        return this.repoImplementation.borrarMarca(marca);
+        return this.service.borrarMarca(marca);
     }
 }

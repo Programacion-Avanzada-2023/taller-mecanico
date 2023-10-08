@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
- *
+ * Repositorio para las entidades de Marca.
  */
 @Repository
 public interface MarcaRepository extends JpaRepository<Marca, Integer>, MarcaRepositoryCustom {
