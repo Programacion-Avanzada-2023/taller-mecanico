@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
  * @author yukal
  */
 @Repository
-public interface ClienteRepository extends JpaRepository<Cliente, Integer>, ClienteRepositoryCustom {
+public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
     @Query("SELECT c FROM Cliente c WHERE c.eliminado = false ORDER BY c.id")
     public List<Cliente> buscarTodo();
    
