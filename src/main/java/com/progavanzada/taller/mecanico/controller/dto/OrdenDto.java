@@ -3,14 +3,14 @@ package com.progavanzada.taller.mecanico.controller.dto;
 import java.util.List;
 
 /**
- *
- * @author Usuario
+ * DTO que representa una Orden de Trabajo en la API RESTful.
  */
 public class OrdenDto {
-    public Integer id;
-    public ModeloDto model;
-    public ClienteDto client;
+
+    public String id;
     public AutomovilDto automovil;
     public String detalles;
     public List<ServicioDto> servicios;
+    public String fechaCreacion;
+    public String fechaModificacion;
 }

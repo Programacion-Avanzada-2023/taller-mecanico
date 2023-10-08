@@ -1,14 +1,16 @@
 package com.progavanzada.taller.mecanico.controller.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.progavanzada.taller.mecanico.entities.objects.RegExPatterns;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
- /**
+
+/**
+ * DTO para actualizar Ordenes de Trabajo existentes.
+ *
  * @author yukal
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class OrdenUpdateDto {
-    @Size(min = 4, max = 32, message = "La Descripcion de una orden no puede superar los 32 caractéres.")
-    @Pattern(regexp = RegExPatterns.OnlyLetters_CI, message = "Los nombres de una marca solo pueden tener letras, espacios y guiones.")
-    public String name;
+
+    @Size(max = 512, message = "El mensaje insertado supera los 512 caractéres.")
+    public String detalles;
 }
