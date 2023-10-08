@@ -13,6 +13,6 @@ import org.springframework.stereotype.Repository;
 public interface AutomovilRepository extends JpaRepository<Automovil, Integer> {
     public List<Automovil> findByEliminadoFalse();
     
-    public Automovil findByIdAndEliminadoFalse();
+    public Automovil findByIdAndEliminadoFalse(Integer id);
 }
 

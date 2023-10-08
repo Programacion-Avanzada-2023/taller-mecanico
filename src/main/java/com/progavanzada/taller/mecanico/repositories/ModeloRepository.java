@@ -11,7 +11,8 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ModeloRepository extends JpaRepository<Modelo, Integer> {
+
     public List<Modelo> findByEliminadoFalse();
-    
-    public Modelo findByIdAndEliminadoFalse();
+
+    public Modelo findByIdAndEliminadoFalse(Integer id);
 }

@@ -11,8 +11,9 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface OrdenRepository extends JpaRepository<OrdenDeTrabajo, Integer> {
+
     public List<OrdenDeTrabajo> findByEliminadoFalse();
-    
-    public OrdenDeTrabajo findByIdAndEliminadoFalse();
-    
+
+    public OrdenDeTrabajo findByIdAndEliminadoFalse(Integer id);
+
 }

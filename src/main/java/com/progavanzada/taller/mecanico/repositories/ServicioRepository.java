@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 public interface ServicioRepository extends JpaRepository<Servicio, Integer> {
     public List<Servicio> findByEliminadoFalse();
     
-    public Servicio findByIdAndEliminadoFalse();
+    public Servicio findByIdAndEliminadoFalse(Integer id);
     
 }
 
