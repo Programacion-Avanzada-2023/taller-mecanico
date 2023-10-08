@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 public class MarcaService implements MarcaRepositoryCustom {
 
     @Autowired
-    @Lazy
     public MarcaRepository repo;
 
     @Override

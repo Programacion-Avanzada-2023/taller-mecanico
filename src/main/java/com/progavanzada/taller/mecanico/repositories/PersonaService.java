@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 public class PersonaService implements PersonaRepositoryCustom {
 
     @Autowired
-    @Lazy
     public PersonaRepository repo;
 
     @Override
