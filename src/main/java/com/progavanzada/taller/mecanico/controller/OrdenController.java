@@ -2,11 +2,9 @@ package com.progavanzada.taller.mecanico.controller;
 
 import com.progavanzada.taller.mecanico.controller.dto.OrdenUpdateDto;
 import com.progavanzada.taller.mecanico.entities.OrdenDeTrabajo;
-import com.progavanzada.taller.mecanico.repositories.OrdenRepository;
 import com.progavanzada.taller.mecanico.repositories.OrdenService;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -25,12 +23,12 @@ public class OrdenController {
 
     @GetMapping
     public List<OrdenDeTrabajo> getOrdenesDeTrabajo() {
-        return this.service.repo.findAll();
+        return this.service.repo.findByEliminadoFalse();
     }
 
     @GetMapping(path = "/{id}")
     public OrdenDeTrabajo getOrdenDeTrabajo(@PathVariable Integer id) {
-        return this.service.repo.buscarPorId(id);
+        return this.service.repo.findByIdAndEliminadoFalse();
     } 
     
     @PostMapping
@@ -41,7 +39,7 @@ public class OrdenController {
     @PatchMapping(path = "/{id}")
     public OrdenDeTrabajo updateOrden(@PathVariable Integer id, @Valid @RequestBody OrdenUpdateDto body) {
         // Buscar la entidad a modificar.
-        OrdenDeTrabajo orden = this.service.repo.buscarPorId(id);
+        OrdenDeTrabajo orden = this.service.repo.findByIdAndEliminadoFalse();
         
         // Si no hay marca, detener la ejecución y largar la excepción.
         if (orden == null)
@@ -54,7 +52,7 @@ public class OrdenController {
     @DeleteMapping(path = "/{id}")
     public boolean deleteOrden(@PathVariable Integer id) {
         // Buscar la entidad a borrar.
-        OrdenDeTrabajo orden = this.service.repo.buscarPorId(id);
+        OrdenDeTrabajo orden = this.service.repo.findByIdAndEliminadoFalse();
         
         // Si no hay marca, detener la ejecución y largar la excepción.
         if (orden == null)
