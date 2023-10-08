@@ -18,7 +18,7 @@ public class MarcaService implements MarcaRepositoryCustom {
     @Override
     public Marca actualizarMarca(MarcaUpdateDto dto, Marca entity) {
         // Mappear campos a la entidad.
-        entity.name = dto.name;
+        entity.name = dto.name != null ? dto.name : entity.name;
 
         return this.repo.save(entity);
     }
