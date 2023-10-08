@@ -1,10 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package com.progavanzada.taller.mecanico.repositories;
 
 import com.progavanzada.taller.mecanico.entities.Servicio;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +11,9 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ServicioRepository extends JpaRepository<Servicio, Integer> {
+    public List<Servicio> findByEliminadoFalse();
+    
+    public Servicio findByIdAndEliminadoFalse();
     
 }
 
