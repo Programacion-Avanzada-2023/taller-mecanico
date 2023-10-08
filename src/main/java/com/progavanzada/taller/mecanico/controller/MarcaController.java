@@ -27,7 +27,7 @@ public class MarcaController {
      */
     @GetMapping
     public List<Marca> getMarcas() {
-        return this.service.repo.buscarTodo();
+        return this.service.repo.findByEliminadoFalse();
     }
 
     /**
@@ -39,7 +39,7 @@ public class MarcaController {
      */
     @GetMapping(path = "/{id}")
     public Marca getMarca(@PathVariable Integer id) {
-        return this.service.repo.buscarPorId(id);
+        return this.service.repo.findByIdAndEliminadoFalse(id);
     }
    
     /**
@@ -50,7 +50,7 @@ public class MarcaController {
      * @return La nueva marca creada.
      */
     @PostMapping
-    public Marca createMarca(@RequestBody Marca marca) {
+    public Marca createMarca(@Valid @RequestBody Marca marca) {
         return this.service.repo.save(marca);
     }
     
@@ -64,7 +64,7 @@ public class MarcaController {
     @PatchMapping(path = "/{id}")
     public Marca updateMarca(@PathVariable Integer id, @Valid @RequestBody MarcaUpdateDto body) {
         // Buscar la entidad a modificar.
-        Marca marca = this.service.repo.buscarPorId(id);
+        Marca marca = this.service.repo.findByIdAndEliminadoFalse(id);
         
         // Si no hay marca, detener la ejecución y largar la excepción.
         if (marca == null)
@@ -84,7 +84,7 @@ public class MarcaController {
     @DeleteMapping(path = "/{id}")
     public boolean deleteMarca(@PathVariable Integer id) {
         // Buscar la entidad a borrar.
-        Marca marca = this.service.repo.buscarPorId(id);
+        Marca marca = this.service.repo.findByIdAndEliminadoFalse(id);
         
         // Si no hay marca, detener la ejecución y largar la excepción.
         if (marca == null)

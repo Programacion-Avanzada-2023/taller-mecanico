@@ -4,11 +4,13 @@ import com.progavanzada.taller.mecanico.controller.dto.MarcaUpdateDto;
 import com.progavanzada.taller.mecanico.entities.Marca;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Usuario
  */
+@Service
 public class MarcaService implements MarcaRepositoryCustom {
 
     @Autowired
