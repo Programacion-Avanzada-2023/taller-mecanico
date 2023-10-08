@@ -2,16 +2,14 @@ package com.progavanzada.taller.mecanico.repositories;
 
 import com.progavanzada.taller.mecanico.controller.dto.MarcaUpdateDto;
 import com.progavanzada.taller.mecanico.entities.Marca;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.data.domain.Example;
 
 /**
  *
  * @author Usuario
  */
-public class MarcaRepositoryImpl implements MarcaRepositoryCustom {
+public class MarcaService implements MarcaRepositoryCustom {
 
     @Autowired
     @Lazy
