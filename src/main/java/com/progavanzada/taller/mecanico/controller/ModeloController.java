@@ -1,10 +1,14 @@
 package com.progavanzada.taller.mecanico.controller;
 
+import com.progavanzada.taller.mecanico.controller.dto.ModeloCreateDto;
+import com.progavanzada.taller.mecanico.controller.dto.ModeloDto;
 import com.progavanzada.taller.mecanico.controller.dto.ModeloUpdateDto;
 import com.progavanzada.taller.mecanico.entities.Modelo;
 import com.progavanzada.taller.mecanico.repositories.ModeloService;
 import jakarta.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -27,8 +31,15 @@ public class ModeloController {
      * @return Un listado con todas las entidades.
      */
     @GetMapping
-    public List<Modelo> getModelos() {
-        return this.service.repo.findByEliminadoFalse();
+    public List<ModeloDto> getModelos() {
+        List<Modelo> modelos = this.service.repo.findByEliminadoFalse();
+        
+        List<ModeloDto> modelosDto = new ArrayList<ModeloDto>();
+        for (Modelo modelo : modelos) {
+            modelosDto.add(this.service.mapModeloToDto(modelo));
+        }
+        
+        return modelosDto;
     }
 
     /**
@@ -40,7 +51,9 @@ public class ModeloController {
      */
     @GetMapping(path = "/{id}")
     public Modelo getModelo(@PathVariable Integer id) {
-        return this.service.repo.findByIdAndEliminadoFalse(id);
+        Modelo modelo = this.service.repo.findByIdAndEliminadoFalse(id);
+        
+        return modelo;
     }
    
     /**
@@ -51,8 +64,8 @@ public class ModeloController {
      * @return El nuevo modelo creado.
      */
     @PostMapping
-    public Modelo createModelo(@Valid @RequestBody Modelo modelo) {
-        return this.service.repo.save(modelo);
+    public ModeloDto createModelo(@Valid @RequestBody ModeloCreateDto modelo) {
+        return this.service.crearModelo(modelo);
     }
     
     /**
@@ -63,7 +76,7 @@ public class ModeloController {
      * @return La entidad modificada.
      */
     @PatchMapping(path = "/{id}")
-    public Modelo updateModelo(@PathVariable Integer id, @Valid @RequestBody ModeloUpdateDto body) {
+    public ModeloDto updateModelo(@PathVariable Integer id, @Valid @RequestBody ModeloUpdateDto body) {
         // Buscar la entidad a modificar.
         Modelo modelo = this.service.repo.findByIdAndEliminadoFalse(id);
         

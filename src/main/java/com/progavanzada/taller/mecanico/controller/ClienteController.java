@@ -1,8 +1,13 @@
 package com.progavanzada.taller.mecanico.controller;
 
+import com.progavanzada.taller.mecanico.controller.dto.AutomovilDto;
+import com.progavanzada.taller.mecanico.controller.dto.ClienteCreateDto;
+import com.progavanzada.taller.mecanico.controller.dto.ClienteDto;
+import com.progavanzada.taller.mecanico.entities.Automovil;
 import com.progavanzada.taller.mecanico.entities.Cliente;
 import com.progavanzada.taller.mecanico.repositories.ClienteService;
 import jakarta.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,8 +31,15 @@ public class ClienteController {
      * @return Un listado con todas las entidades.
      */
     @GetMapping
-    public List<Cliente> getClientes() {
-        return this.service.repo.findByEliminadoFalse();
+    public List<ClienteDto> getClientes() {
+        List<Cliente> clientes = this.service.repo.findByEliminadoFalse();
+        
+        List<ClienteDto> clienteDtos = new ArrayList<ClienteDto>();
+        for (Cliente cliente : clientes) {
+            clienteDtos.add(this.service.mapClienteToDto(cliente));
+        }
+        
+        return clienteDtos;
     }
 
     /**
@@ -50,8 +62,8 @@ public class ClienteController {
      * @return El nuevo cliente creado.
      */
     @PostMapping
-    public Cliente createCliente(@Valid @RequestBody Cliente cliente) {
-        return this.service.repo.save(cliente);
+    public ClienteDto createCliente(@Valid @RequestBody ClienteCreateDto dto) {
+        return this.service.crearCliente(dto);
     }
 
     /**

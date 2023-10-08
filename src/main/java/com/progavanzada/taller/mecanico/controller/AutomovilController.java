@@ -1,9 +1,12 @@
 package com.progavanzada.taller.mecanico.controller;
 
+import com.progavanzada.taller.mecanico.controller.dto.AutomovilCreateDto;
+import com.progavanzada.taller.mecanico.controller.dto.AutomovilDto;
 import com.progavanzada.taller.mecanico.controller.dto.AutomovilUpdateDto;
 import com.progavanzada.taller.mecanico.entities.Automovil;
 import com.progavanzada.taller.mecanico.repositories.AutomovilService;
 import jakarta.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,8 +30,15 @@ public class AutomovilController {
      * @return Un listado con todas las entidades.
      */
     @GetMapping
-    public List<Automovil> getAutomoviles() {
-        return this.service.repo.findByEliminadoFalse();
+    public List<AutomovilDto> getAutomoviles() {
+        List<Automovil> automoviles = this.service.repo.findByEliminadoFalse();
+        
+        List<AutomovilDto> automovilesDto = new ArrayList<AutomovilDto>();
+        for (Automovil automovil : automoviles) {
+            automovilesDto.add(this.service.mapAutomovilToDto(automovil));
+        }
+        
+        return automovilesDto;
     }
 
     /**
@@ -51,8 +61,8 @@ public class AutomovilController {
      * @return El nuevo automovil creado.
      */
     @PostMapping
-    public Automovil createAutomovil(@Valid @RequestBody Automovil automovil) {
-        return this.service.repo.save(automovil);
+    public AutomovilDto createAutomovil(@Valid @RequestBody AutomovilCreateDto automovil) {
+        return this.service.crearAutomovil(automovil);
     }
 
     /**
@@ -63,7 +73,7 @@ public class AutomovilController {
      * @return La entidad modificada.
      */
     @PatchMapping(path = "/{id}")
-    public Automovil updateAutomovil(@PathVariable Integer id, @Valid @RequestBody AutomovilUpdateDto body) {
+    public AutomovilDto updateAutomovil(@PathVariable Integer id, @Valid @RequestBody AutomovilUpdateDto body) {
         // Buscar la entidad a modificar.
         Automovil automovil = this.service.repo.findByIdAndEliminadoFalse(id);
 
