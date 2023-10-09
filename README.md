@@ -10,6 +10,11 @@ Este repositorio sirve como el backend que da soporte al proyecto de **taller me
 - MAIRONE, Nicolás Nahuel
 - SERNIOTTI, Guido Andrés
 
+## Documentación
+La documentación pertinente del software se encuentra disponible en [la wiki del repositorio](https://github.com/Programacion-Avanzada-2023/taller-mecanico/wiki).
+
+Para visualizar la referencia de la API RESTful y sus recursos, dejamos [disponible en Postman la misma](https://documenter.getpostman.com/view/21463857/2s9YJgUM76).
+
 ## Configuración
 1. Establezca la conexión con el JDBC de MySQL en `application.properties`. Por defecto, apunta hacia `localhost` o `127.0.0.1` y la base de datos se llama `taller`.
 
