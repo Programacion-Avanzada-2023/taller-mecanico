@@ -17,6 +17,10 @@ public class PhoneNumberConverter implements AttributeConverter<String, String> 
 
     @Override
     public String convertToDatabaseColumn(String phoneNumber) {
+        if (phoneNumber == null || phoneNumber.isEmpty()) {
+            return null;
+        }
+
         // Crear instancia del parser de la API de Google.
         PhoneNumberUtil phone = PhoneNumberUtil.getInstance();
 
