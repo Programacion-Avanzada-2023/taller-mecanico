@@ -23,12 +23,16 @@ public class PhoneNumberValidator implements ConstraintValidator<PhoneNumberCons
     
     @Override
     public boolean isValid(String phoneNumber, ConstraintValidatorContext ctx) {
+        if (phoneNumber == null) return true;
+        
         // Crear instancia del parser de la API de Google.
         PhoneNumberUtil phone = PhoneNumberUtil.getInstance();
         
         try {
+            PhoneNumber parsed = phone.parse(phoneNumber, this.isoCode);
+            
             // Intentar parsear el número.
-            return phone.parse(phoneNumber, this.isoCode) instanceof PhoneNumber;
+            return parsed instanceof PhoneNumber;
         } catch (NumberParseException e) {
             return false;
         }
