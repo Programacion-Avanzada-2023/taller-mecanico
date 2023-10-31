@@ -14,4 +14,5 @@ public class ServicioUpdateDto {
     @Size(min = 4, max = 32, message = "La Descripcion de una orden no puede superar los 32 caractéres.")
     @Pattern(regexp = RegExPatterns.OnlyLetters_CI, message = "Los nombres de una marca solo pueden tener letras, espacios y guiones.")
     public String descripcion;
+    
 }

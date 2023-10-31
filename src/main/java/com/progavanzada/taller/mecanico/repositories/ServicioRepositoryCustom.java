@@ -4,6 +4,8 @@
  */
 package com.progavanzada.taller.mecanico.repositories;
 
+import com.progavanzada.taller.mecanico.controller.dto.ServicioCreateDto;
+import com.progavanzada.taller.mecanico.controller.dto.ServicioDto;
 import com.progavanzada.taller.mecanico.controller.dto.ServicioUpdateDto;
 import com.progavanzada.taller.mecanico.entities.Servicio;
 
@@ -13,7 +15,11 @@ import com.progavanzada.taller.mecanico.entities.Servicio;
  */
 public interface ServicioRepositoryCustom {
 
-    Servicio actualizarServicio(ServicioUpdateDto dto, Servicio entity);
+    ServicioDto actualizarServicio(ServicioUpdateDto dto, Servicio entity);
 
     boolean borrarServicio(Servicio entity);
+    
+    ServicioDto eliminarServicio(String id, ServicioDto dto);
+    
+    ServicioDto crearServicio(ServicioCreateDto dto);
 }

@@ -1,5 +1,6 @@
 package com.progavanzada.taller.mecanico.repositories;
 
+import com.progavanzada.taller.mecanico.controller.dto.ServicioCreateDto;
 import com.progavanzada.taller.mecanico.controller.dto.ServicioDto;
 import com.progavanzada.taller.mecanico.controller.dto.ServicioUpdateDto;
 import com.progavanzada.taller.mecanico.entities.Servicio;
@@ -26,17 +27,18 @@ public class ServicioService {
     public ServicioDto mapServiceToDto(Servicio entity) {
         ServicioDto dto = new ServicioDto();
         dto.id = entity.id;
+        dto.name = entity.name;
         dto.descripcion = entity.descripcion;
         
         return dto;
     }
 
     //me pidio borrar los Override
-    public Servicio actualizarServicio(ServicioUpdateDto dto, Servicio entity) {
+    public ServicioDto actualizarServicio(ServicioUpdateDto dto, Servicio entity) {
         // Mappear campos a la entidad.
         entity.descripcion = dto.descripcion != null ? dto.descripcion : entity.descripcion;
 
-        return this.repo.save(entity);
+        return this.mapServiceToDto(this.repo.save(entity));
     }
     
     //me pidio borrar los Override
@@ -46,5 +48,16 @@ public class ServicioService {
 
         this.repo.save(entity);
         return true;
+    }
+    
+    public ServicioDto crearServicio(ServicioCreateDto dto) {
+        Servicio servicio = new Servicio();
+        servicio.name = dto.name;
+        servicio.descripcion = dto.descripcion;
+        
+        this.repo.save(servicio);
+        
+        return this.mapServiceToDto(servicio);
+        
     }
 }

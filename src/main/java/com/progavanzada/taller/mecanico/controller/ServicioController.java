@@ -1,9 +1,12 @@
 package com.progavanzada.taller.mecanico.controller;
 
+import com.progavanzada.taller.mecanico.controller.dto.ServicioCreateDto;
+import com.progavanzada.taller.mecanico.controller.dto.ServicioDto;
 import com.progavanzada.taller.mecanico.controller.dto.ServicioUpdateDto;
 import com.progavanzada.taller.mecanico.entities.Servicio;
 import com.progavanzada.taller.mecanico.repositories.ServicioService;
 import jakarta.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,8 +30,15 @@ public class ServicioController {
      * @return Un listado con todas las entidades.
      */
     @GetMapping
-    public List<Servicio> getServicios() {
-        return this.service.repo.findByEliminadoFalse();
+    public List<ServicioDto> getServicios() {
+        List<Servicio> servicios = this.service.repo.findByEliminadoFalse();
+        
+        List<ServicioDto> serviciosDto = new ArrayList<ServicioDto>();
+        for (Servicio servicio : servicios) {
+            serviciosDto.add(this.service.mapServiceToDto(servicio));
+        }
+        
+        return serviciosDto;
     }
 
     /**
@@ -39,8 +49,8 @@ public class ServicioController {
      * @return La entidad, si no, null.
      */
     @GetMapping(path = "/{id}")
-    public Servicio getServicio(@PathVariable Integer id) {
-        return this.service.repo.findByIdAndEliminadoFalse(id);
+    public ServicioDto getServicio(@PathVariable("id") Integer id) {
+        return this.service.mapServiceToDto(this.service.repo.findByIdAndEliminadoFalse(id));
     }
    
     /**
@@ -51,8 +61,8 @@ public class ServicioController {
      * @return El nuevo servicio creada.
      */
     @PostMapping
-    public Servicio createServicio(@RequestBody Servicio servicio) {
-        return this.service.repo.save(servicio);
+    public ServicioDto createServicio(@Valid @RequestBody ServicioCreateDto dto) {
+        return this.service.crearServicio(dto);
     }
     
     /**
@@ -63,7 +73,7 @@ public class ServicioController {
      * @return La entidad modificada.
      */
     @PatchMapping(path = "/{id}")
-    public Servicio updateServicio(@PathVariable Integer id, @Valid @RequestBody ServicioUpdateDto body) {
+    public ServicioDto updateServicio(@PathVariable Integer id, @Valid @RequestBody ServicioUpdateDto body) {
         // Buscar la entidad a modificar.
         Servicio servicio = this.service.repo.findByIdAndEliminadoFalse(id);
         

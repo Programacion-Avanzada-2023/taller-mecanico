@@ -1,5 +1,7 @@
 package com.progavanzada.taller.mecanico.repositories;
 
+import com.progavanzada.taller.mecanico.controller.dto.MarcaCreateDto;
+import com.progavanzada.taller.mecanico.controller.dto.MarcaDto;
 import com.progavanzada.taller.mecanico.controller.dto.MarcaUpdateDto;
 import com.progavanzada.taller.mecanico.entities.Marca;
 
@@ -16,7 +18,7 @@ public interface MarcaRepositoryCustom {
      *
      * @return La Marca con sus campos modificados.
      */
-    Marca actualizarMarca(MarcaUpdateDto dto, Marca entity);
+    MarcaDto actualizarMarca(MarcaUpdateDto dto, Marca entity);
 
     /**
      * Marca una entidad de marca como borrada.
@@ -26,4 +28,8 @@ public interface MarcaRepositoryCustom {
      * @return Verdadero si fue borrada.
      */
     boolean borrarMarca(Marca entity);
+    
+    MarcaDto eliminarMarca(String id, MarcaDto dto);
+    
+    MarcaDto crearMarca(MarcaCreateDto dto);
 }

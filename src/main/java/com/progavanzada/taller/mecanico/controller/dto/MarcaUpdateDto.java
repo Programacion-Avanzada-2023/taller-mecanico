@@ -10,7 +10,7 @@ import jakarta.validation.constraints.Size;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class MarcaUpdateDto {
-    @Size(min = 4, max = 32, message = "El nombre de una marca no puede superar los 32 caractéres.")
+    @Size(min = 4, max = 32, message = "El origen de una marca no puede superar los 32 caractéres.")
     @Pattern(regexp = RegExPatterns.OnlyLetters_CI, message = "Los nombres de una marca solo pueden tener letras, espacios y guiones.")
-    public String name;
+    public String origen;
 }

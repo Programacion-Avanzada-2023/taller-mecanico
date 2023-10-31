@@ -6,5 +6,6 @@ package com.progavanzada.taller.mecanico.controller.dto;
  */
 public class ServicioDto {
     public Integer id;
+    public String name;
     public String descripcion;
 }
