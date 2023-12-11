@@ -46,6 +46,16 @@ public class OrdenDeTrabajo {
     @NotNull
     public List<Servicio> servicios;
 
+    private Marca marca;
+
+    public float calcularCostoTotal(){
+        float costoTotal=0;
+        for (Servicio servicio: servicios){
+            costoTotal += servicio.getPrecioUnitario();
+        }
+        costoTotal+=costoTotal*marca.getImpuestoMarca();
+        return costoTotal;
+    }
     /**
      * Fecha de creación de la orden de trabajo ISO8601, calculada automáticamente.
      */
