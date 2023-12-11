@@ -64,8 +64,8 @@ public class ModeloController {
      * @return El nuevo modelo creado.
      */
     @PostMapping
-    public ModeloDto createModelo(@Valid @RequestBody ModeloCreateDto modelo) {
-        return this.service.crearModelo(modelo);
+    public ModeloDto createModelo(@Valid @RequestBody ModeloCreateDto dto) {
+        return this.service.crearModelo(dto);
     }
     
     /**
