@@ -36,10 +36,16 @@ public class Marca {
     @NotNull
     public String origen;
 
+    public float impuestoMarca;
+
     /**
      * Flag que denota si la entidad fue eliminada o no.
      */
     @Column(nullable = false)
     @JsonIgnore
     public boolean eliminado = false;
+
+    public float getImpuestoMarca(){
+        return this.impuestoMarca;
+    }
 }
