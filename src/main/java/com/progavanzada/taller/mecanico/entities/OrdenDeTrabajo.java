@@ -67,7 +67,7 @@ public class OrdenDeTrabajo {
      *
      * Fecha de la última modificación de la orden.
      */
-    @Column(nullable = false)
+    @Column(nullable = true)
     public String fechaModificacion = java.time.LocalDateTime.now().toString();
 
     /**
