@@ -3,6 +3,7 @@ package com.progavanzada.taller.mecanico.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import java.sql.Timestamp;
 
 /**
  *
@@ -27,10 +28,10 @@ public class Reserva {
     public Tecnico tecnico;
     
     @Column(nullable = false)
-    public String fechaInicio = java.time.LocalDateTime.now().toString();
+    public Timestamp fechaInicio = Timestamp.valueOf(java.time.LocalDateTime.now());
     
-    //@Column(nullable = false)
-    //public String fechaFin = java.time.LocalDateTime.now().toString();
+    @Column(nullable = true)
+    public Timestamp fechaFin;
     
     @Column(nullable = false)
     @JsonIgnore

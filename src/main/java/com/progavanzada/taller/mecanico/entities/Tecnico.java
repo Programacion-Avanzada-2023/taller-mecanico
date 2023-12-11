@@ -10,19 +10,19 @@ import jakarta.validation.constraints.NotNull;
 /**
  *
  */
-/*@Entity
-@Table(name = "tm_tecnicos")*/
+@Entity
+@Table(name = "tm_tecnicos")
 public class Tecnico {
 
     /**
      * ID único representativo del técnico.
      */
-    /*@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Integer id;
 
     @OneToOne(targetEntity = Persona.class, optional = false)
     @JoinColumn(name = "persona_id")
     @NotNull
-    public Persona person;*/
+    public Persona person;
 }

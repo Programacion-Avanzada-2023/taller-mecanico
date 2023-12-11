@@ -41,7 +41,7 @@ public class ReservaService implements ReservaRepositoryCustom {
         reserva.client = cliente;
         //reserva.tecnico = tecnico;
         reserva.fechaInicio = entity.fechaInicio;
-        //reserva.fechaFin = entity.fechaFin;
+        reserva.fechaFin = entity.fechaFin;
         return reserva;
     }
 
@@ -79,7 +79,7 @@ public class ReservaService implements ReservaRepositoryCustom {
         Reserva reserva = new Reserva();
         reserva.client = cliente;
         //reserva.tecnico = tecnico;
-        reserva .fechaInicio= dto.fechaInicio;
+        reserva.fechaInicio = dto.fechaInicio;
         //reserva .fechaFin= dto.fechaFin;
 
         this.repo.save(reserva);

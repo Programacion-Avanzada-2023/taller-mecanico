@@ -4,6 +4,8 @@
  */
 package com.progavanzada.taller.mecanico.controller.dto;
 
+import java.sql.Timestamp;
+
 /**
  *
  * @author yukal
@@ -11,6 +13,6 @@ package com.progavanzada.taller.mecanico.controller.dto;
 public class ReservaCreateDto {
     public Integer client;
     //public Integer tecnico;
-    public String fechaInicio;
+    public Timestamp fechaInicio;
     //public String fechaFin;
 }

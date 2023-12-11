@@ -5,9 +5,9 @@
 package com.progavanzada.taller.mecanico.controller.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.progavanzada.taller.mecanico.entities.objects.RegExPatterns;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import java.sql.Timestamp;
 
 /**
  *
@@ -15,8 +15,8 @@ import jakarta.validation.constraints.Size;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ReservaUpdateDto {
-    @Size(min = 4, max = 32, message = "El nombre de una marca no puede superar los 32 caractéres.")
-    public String fechaInicio;
+    @Temporal(TemporalType.TIMESTAMP)
+    public Timestamp fechaInicio;
     
     //public String fechaFin;
 }

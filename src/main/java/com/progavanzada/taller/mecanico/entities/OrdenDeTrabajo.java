@@ -46,14 +46,12 @@ public class OrdenDeTrabajo {
     @NotNull
     public List<Servicio> servicios;
 
-    private Marca marca;
-
     public float calcularCostoTotal(){
-        float costoTotal=0;
+        float costoTotal = 0;
         for (Servicio servicio: servicios){
             costoTotal += servicio.getPrecioUnitario();
         }
-        costoTotal+=costoTotal*marca.getImpuestoMarca();
+        costoTotal += costoTotal * this.automovil.model.brand.impuestoMarca;
         return costoTotal;
     }
     /**

@@ -1,12 +1,8 @@
 package com.progavanzada.taller.mecanico.entities;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.progavanzada.taller.mecanico.entities.objects.RegExPatterns;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 /**
@@ -36,7 +32,8 @@ public class Marca {
     @NotNull
     public String origen;
 
-    public float impuestoMarca;
+    @Column(nullable = false)
+    public Double impuestoMarca;
 
     /**
      * Flag que denota si la entidad fue eliminada o no.
@@ -44,8 +41,4 @@ public class Marca {
     @Column(nullable = false)
     @JsonIgnore
     public boolean eliminado = false;
-
-    public float getImpuestoMarca(){
-        return this.impuestoMarca;
-    }
 }

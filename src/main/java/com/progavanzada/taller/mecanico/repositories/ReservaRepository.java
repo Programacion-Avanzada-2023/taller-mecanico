@@ -7,15 +7,17 @@ package com.progavanzada.taller.mecanico.repositories;
 import com.progavanzada.taller.mecanico.entities.Reserva;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author yukal
  */
+@Repository
 public interface ReservaRepository extends JpaRepository<Reserva, Integer>{
     
     public List<Reserva> findByEliminadoFalse();
 
-    public Reserva findByIdAndEliminadoFalse(String id);
+    public Reserva findByIdAndEliminadoFalse(Integer id);
 
 }
