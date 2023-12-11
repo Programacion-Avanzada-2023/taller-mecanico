@@ -46,6 +46,7 @@ public class AutomovilService implements AutomovilRepositoryCustom {
         automovil.client = cliente;
         automovil.licensePlate = entity.licensePlate;
         automovil.model = modelo;
+        automovil.km = entity.km;
 
         return automovil;
     }
@@ -89,6 +90,7 @@ public class AutomovilService implements AutomovilRepositoryCustom {
         automovil.client = cliente;
         automovil.model = modelo;
         automovil.licensePlate = dto.licensePlate;
+        automovil.km = dto.km;
 
         this.repo.save(automovil);
 

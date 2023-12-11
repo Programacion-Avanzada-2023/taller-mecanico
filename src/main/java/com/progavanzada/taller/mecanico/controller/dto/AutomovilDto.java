@@ -5,4 +5,5 @@ public class AutomovilDto {
     public ModeloDto model;
     public ClienteDto client;
     public String licensePlate;
+    public String km;
 }

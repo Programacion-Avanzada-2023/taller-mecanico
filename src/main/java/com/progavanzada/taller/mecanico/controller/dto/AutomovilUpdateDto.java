@@ -17,4 +17,6 @@ import jakarta.validation.constraints.Size;
 public class AutomovilUpdateDto {
     @Pattern(regexp = RegExPatterns.ArgentineLicensePlate, message = "El formato introducido de patente no es válido.")
     public String licensePlate;
+    
+    public String km;
 }

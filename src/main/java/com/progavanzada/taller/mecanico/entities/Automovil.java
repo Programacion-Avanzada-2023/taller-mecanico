@@ -43,6 +43,11 @@ public class Automovil {
     @Column(nullable = false, length = 8)
     @NotNull
     public String licensePlate;
+    
+    //revisar regex
+    @Column(nullable = false, length = 8)
+    @NotNull
+    public String km;
    
     /**
      * Flag que denota si la entidad fue eliminada o no.
