@@ -48,7 +48,7 @@ public class ReservaController {
     }
     
     @GetMapping("/{id}")
-    public ReservaDto getReserva(@PathVariable("id") String id) {
+    public ReservaDto getReserva(@PathVariable("id") Integer id) {
         return this.service.mapReservaToDto(this.service.repo.findByIdAndEliminadoFalse(id));
     }
     
@@ -58,7 +58,7 @@ public class ReservaController {
     }
     
     @PatchMapping("/{id}")
-    public ReservaDto updateReserva(@PathVariable("id") String id, @Valid @RequestBody ReservaUpdateDto dto) {
+    public ReservaDto updateReserva(@PathVariable("id") Integer id, @Valid @RequestBody ReservaUpdateDto dto) {
         Reserva reserva = this.service.repo.findByIdAndEliminadoFalse(id);
 
         if (reserva == null) {
@@ -69,7 +69,7 @@ public class ReservaController {
     }
     
     @DeleteMapping("/{id}")
-    public boolean deleteOrden(@PathVariable("id") String id) {
+    public boolean deleteOrden(@PathVariable("id") Integer id) {
         Reserva reserva = this.service.repo.findByIdAndEliminadoFalse(id);
 
         if (reserva == null) {
