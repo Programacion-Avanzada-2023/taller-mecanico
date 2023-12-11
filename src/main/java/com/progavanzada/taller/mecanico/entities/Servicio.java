@@ -32,11 +32,19 @@ public class Servicio {
     @NotNull
     public String descripcion;
 
+    @Column(nullable = false, length=2)
+    public float precioUnitario;
+
     /**
      * Flag que denota si la entidad fue eliminada o no.
      */
     @Column(nullable = false)
     @JsonIgnore
     public boolean eliminado = false;
+
+    public float getPrecioUnitario(){
+        return this.precioUnitario;
+    }
+
 
 }
