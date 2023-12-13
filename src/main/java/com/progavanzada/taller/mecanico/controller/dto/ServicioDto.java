@@ -8,4 +8,5 @@ public class ServicioDto {
     public Integer id;
     public String name;
     public String descripcion;
+    public float precioUnitario;
 }

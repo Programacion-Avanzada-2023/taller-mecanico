@@ -1,9 +1,7 @@
 package com.progavanzada.taller.mecanico.controller;
 
-import com.progavanzada.taller.mecanico.controller.dto.AutomovilDto;
 import com.progavanzada.taller.mecanico.controller.dto.ClienteCreateDto;
 import com.progavanzada.taller.mecanico.controller.dto.ClienteDto;
-import com.progavanzada.taller.mecanico.entities.Automovil;
 import com.progavanzada.taller.mecanico.entities.Cliente;
 import com.progavanzada.taller.mecanico.repositories.ClienteService;
 import jakarta.validation.Valid;

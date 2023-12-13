@@ -14,4 +14,5 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class ServicioCreateDto {
     public String name;
     public String descripcion;
+    public float precioUnitario;
 }

@@ -23,6 +23,7 @@ public class MarcaService {
         dto.id = entity.id;
         dto.name = entity.name;
         dto.origen = entity.origen;
+        dto.impuestoMarca = entity.impuestoMarca;
         
         return dto;
     }
@@ -46,6 +47,7 @@ public class MarcaService {
         Marca marca = new Marca();
         marca.name = dto.name;
         marca.origen = dto.origen;
+        marca.impuestoMarca = dto.impuestoMarca;
         
         this.repo.save(marca);
         

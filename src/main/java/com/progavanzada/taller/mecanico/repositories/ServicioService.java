@@ -29,6 +29,7 @@ public class ServicioService {
         dto.id = entity.id;
         dto.name = entity.name;
         dto.descripcion = entity.descripcion;
+        dto.precioUnitario = entity.precioUnitario;
         
         return dto;
     }
@@ -54,6 +55,7 @@ public class ServicioService {
         Servicio servicio = new Servicio();
         servicio.name = dto.name;
         servicio.descripcion = dto.descripcion;
+        servicio.precioUnitario = dto.precioUnitario;
         
         this.repo.save(servicio);
         

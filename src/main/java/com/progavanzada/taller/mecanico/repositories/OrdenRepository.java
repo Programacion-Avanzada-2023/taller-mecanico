@@ -16,4 +16,12 @@ public interface OrdenRepository extends JpaRepository<OrdenDeTrabajo, String> {
 
     public OrdenDeTrabajo findByIdAndEliminadoFalse(String id);
 
+    /**
+     * Busca todas las órdenes de trabajo asignadas a un técnico.
+     *
+     * @param tecnicoId El identificador único del técnico.
+     * 
+     * @return La lista de órdenes de trabajo asignadas a este técnico.
+     */
+    //public List<OrdenDeTrabajo> findByTecnico(Integer tecnicoId);
 }

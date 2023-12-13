@@ -11,10 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-/**
- *
- * @author Usuario
- */
 @Service
 public class ReservaService implements ReservaRepositoryCustom {
 

@@ -46,20 +46,12 @@ public class OrdenDeTrabajo {
     @NotNull
     public List<Servicio> servicios;
 
-    public float calcularCostoTotal(){
-        float costoTotal = 0;
-        for (Servicio servicio: servicios){
-            costoTotal += servicio.getPrecioUnitario();
-        }
-        costoTotal += costoTotal * this.automovil.model.brand.impuestoMarca;
-        return costoTotal;
-    }
     /**
      * Fecha de creación de la orden de trabajo ISO8601, calculada automáticamente.
      */
     @Column(nullable = false)
     public String fechaCreacion = java.time.LocalDateTime.now().toString();
-    
+
     /**
      * TODO: No implementado para esta entrega.
      *
@@ -69,9 +61,40 @@ public class OrdenDeTrabajo {
     public String fechaModificacion = java.time.LocalDateTime.now().toString();
 
     /**
+     * El técnico asociado a esta órden de trabajo.
+     *
+     * Puede que no tenga uno al momento de su creación.
+     */
+    @ManyToOne(targetEntity = Tecnico.class, optional = true)
+    @JoinColumn(name = "tecnico_id")
+    public Tecnico tecnico = null;
+
+    /**
      * Flag que denota si la entidad fue eliminada o no.
      */
     @Column(nullable = false)
     @JsonIgnore
     public boolean eliminado = false;
+
+    /**
+     * Calcula el costo total de una orden de trabajo en base a sus servicios e
+     * impuestos por marca de automovil.
+     * 
+     * @return El total de la orden de trabajo con impuestos aplicados.
+     */
+    public float calcularCostoTotal() {
+        // Comenzar el total en 0.
+        float costoTotal = 0;
+
+        // Iterar servicios e ir sumando sus precios unitarios.
+        for (Servicio servicio : servicios) {
+            costoTotal += servicio.getPrecioUnitario();
+        }
+
+        // Agregar los agregados por impuestos.
+        costoTotal += costoTotal * this.automovil.model.brand.impuestoMarca;
+
+        // Retornar el costo total.
+        return costoTotal;
+    }
 }

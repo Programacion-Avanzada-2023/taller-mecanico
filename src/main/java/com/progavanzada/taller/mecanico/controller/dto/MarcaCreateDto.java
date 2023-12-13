@@ -14,4 +14,5 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class MarcaCreateDto {
     public String name;
     public String origen;
+    public float impuestoMarca;
 }

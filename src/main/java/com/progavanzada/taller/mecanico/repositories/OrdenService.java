@@ -43,9 +43,8 @@ public class OrdenService implements OrdenRepositoryCustom {
         AutomovilDto automovil = this.serviceAutomovil.mapAutomovilToDto(entity.automovil);
 
         List<ServicioDto> servicios = new ArrayList<ServicioDto>();
-        for (Servicio servicio : entity.servicios) {
+        for (Servicio servicio : entity.servicios)
             servicios.add(this.serviceServicio.mapServiceToDto(servicio));
-        }
 
         OrdenDto dto = new OrdenDto();
         dto.id = entity.id;
@@ -81,7 +80,8 @@ public class OrdenService implements OrdenRepositoryCustom {
         List<Servicio> servicios = this.serviceServicio.repo.findByEliminadoFalseAndIdIn(dto.servicios);
 
         if (servicios.size() < 1) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Los servicios especificados (" + dto.servicios.toString() + ") no existen o no se pudieron encontrar.", null);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Los servicios especificados ("
+                    + dto.servicios.toString() + ") no existen o no se pudieron encontrar.", null);
         }
 
         // Buscar el automovil especificado.
@@ -90,16 +90,16 @@ public class OrdenService implements OrdenRepositoryCustom {
         if (automovil == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "El automóvil especificado no existe.", null);
         }
-        
+
         OrdenDeTrabajo orden = new OrdenDeTrabajo();
         orden.automovil = automovil;
         orden.servicios = servicios;
         orden.detalles = dto.detalles;
         orden.fechaCreacion = java.time.LocalDateTime.now().toString();
         orden.fechaModificacion = java.time.LocalDateTime.now().toString();
-        
+
         this.repo.save(orden);
-        
+
         return this.mapOrdenToDto(orden);
     }
 
@@ -116,7 +116,8 @@ public class OrdenService implements OrdenRepositoryCustom {
         Servicio servicio = this.serviceServicio.repo.findByIdAndEliminadoFalse(dto.servicio);
 
         if (servicio == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "El servicio que se solicita agregar no existe.", null);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "El servicio que se solicita agregar no existe.",
+                    null);
         }
 
         // Agregarlo a la lista y actualizar la fecha de modificación.
@@ -147,10 +148,12 @@ public class OrdenService implements OrdenRepositoryCustom {
         }
 
         if (servicio == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El servicio " + dto.servicio + " no está en esta orden.", null);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "El servicio " + dto.servicio + " no está en esta orden.", null);
         }
 
-        // Eliminar el servicio de la lista, y actualizar la fecha de modificación de la orden.
+        // Eliminar el servicio de la lista, y actualizar la fecha de modificación de la
+        // orden.
         orden.servicios.remove(servicio);
         orden.fechaModificacion = java.time.LocalDateTime.now().toString();
 
@@ -158,4 +161,9 @@ public class OrdenService implements OrdenRepositoryCustom {
 
         return this.mapOrdenToDto(orden);
     }
+
+    /* @Override
+    public List<OrdenDeTrabajo> buscarOrdenPorTecnico(Integer id) {
+        return this.repo.findByTecnico(id);
+    } */
 }

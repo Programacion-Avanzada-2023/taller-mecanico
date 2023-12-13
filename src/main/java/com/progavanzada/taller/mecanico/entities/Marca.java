@@ -33,7 +33,7 @@ public class Marca {
     public String origen;
 
     @Column(nullable = false)
-    public Double impuestoMarca;
+    public float impuestoMarca;
 
     /**
      * Flag que denota si la entidad fue eliminada o no.

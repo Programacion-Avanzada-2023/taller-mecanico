@@ -5,6 +5,7 @@ import com.progavanzada.taller.mecanico.controller.dto.OrdenDto;
 import com.progavanzada.taller.mecanico.controller.dto.OrdenServicioDto;
 import com.progavanzada.taller.mecanico.controller.dto.OrdenUpdateDto;
 import com.progavanzada.taller.mecanico.entities.OrdenDeTrabajo;
+import java.util.List;
 
 /**
  *
@@ -60,4 +61,12 @@ public interface OrdenRepositoryCustom {
      */
     OrdenDto crearOrden(OrdenCreateDto dto);
 
+    /**
+     * Busca órdenes de trabajo basadas en el técnico asignado a ellas.
+     *
+     * @param id El identificador único del técnico.
+     *
+     * @return La lista de órdenes de trabajo asignadas a este técnico.
+     */
+    // List<OrdenDeTrabajo> buscarOrdenPorTecnico(Integer id);
 }
