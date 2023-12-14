@@ -69,4 +69,5 @@ public interface OrdenRepositoryCustom {
      * @return La lista de órdenes de trabajo asignadas a este técnico.
      */
     // List<OrdenDeTrabajo> buscarOrdenPorTecnico(Integer id);
+    List<OrdenDeTrabajo> buscarOrdenPorCliente(Integer id);
 }

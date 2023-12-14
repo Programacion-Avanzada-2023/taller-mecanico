@@ -1,6 +1,7 @@
 package com.progavanzada.taller.mecanico.repositories;
 
 import com.progavanzada.taller.mecanico.controller.dto.AutomovilDto;
+import com.progavanzada.taller.mecanico.controller.dto.ClienteDto;
 import com.progavanzada.taller.mecanico.controller.dto.OrdenCreateDto;
 import com.progavanzada.taller.mecanico.controller.dto.OrdenDto;
 import com.progavanzada.taller.mecanico.controller.dto.OrdenServicioDto;
@@ -31,6 +32,9 @@ public class OrdenService implements OrdenRepositoryCustom {
 
     @Autowired
     private ServicioService serviceServicio;
+    
+    @Autowired
+    private ClienteService serviceCliente;
 
     /**
      * Mappea una entidad de Orden de Trabajo hacia su DTO.
@@ -41,6 +45,7 @@ public class OrdenService implements OrdenRepositoryCustom {
      */
     public OrdenDto mapOrdenToDto(OrdenDeTrabajo entity) {
         AutomovilDto automovil = this.serviceAutomovil.mapAutomovilToDto(entity.automovil);
+        ClienteDto cliente = this.serviceCliente.mapClienteToDto(entity.client);
 
         List<ServicioDto> servicios = new ArrayList<ServicioDto>();
         for (Servicio servicio : entity.servicios)
@@ -49,6 +54,7 @@ public class OrdenService implements OrdenRepositoryCustom {
         OrdenDto dto = new OrdenDto();
         dto.id = entity.id;
         dto.automovil = automovil;
+        dto.cliente = cliente;
         dto.detalles = entity.detalles;
         dto.fechaCreacion = entity.fechaCreacion;
         dto.fechaModificacion = entity.fechaModificacion;
@@ -166,4 +172,9 @@ public class OrdenService implements OrdenRepositoryCustom {
     public List<OrdenDeTrabajo> buscarOrdenPorTecnico(Integer id) {
         return this.repo.findByTecnico(id);
     } */
+    
+    @Override
+    public List<OrdenDeTrabajo> buscarOrdenPorCliente(Integer clienteId) {
+        return this.repo.findByClient_IdAndEliminadoFalse(clienteId);
+    }
 }

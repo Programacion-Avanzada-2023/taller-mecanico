@@ -9,6 +9,7 @@ public class OrdenDto {
 
     public String id;
     public AutomovilDto automovil;
+    public ClienteDto cliente;
     public String detalles;
     public List<ServicioDto> servicios;
     public String fechaCreacion;

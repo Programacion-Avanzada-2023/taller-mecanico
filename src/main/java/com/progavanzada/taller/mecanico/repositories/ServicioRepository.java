@@ -17,5 +17,7 @@ public interface ServicioRepository extends JpaRepository<Servicio, Integer> {
     
     public Servicio findByIdAndEliminadoFalse(Integer id);
     
+    //public List<Servicio> findByOrderByCantidadSolicitudesDesc(Pageable pageable);
+    
 }
 

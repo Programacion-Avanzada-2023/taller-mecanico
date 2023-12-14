@@ -9,6 +9,7 @@ import java.util.List;
  */
 public class OrdenCreateDto {
 
+    public Integer cliente;
     public Integer automovil;
     public String detalles;
     public List<Integer> servicios;
