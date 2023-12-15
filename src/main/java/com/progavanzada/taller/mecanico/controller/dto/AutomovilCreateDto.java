@@ -4,5 +4,5 @@ public class AutomovilCreateDto {
     public Integer model;
     public Integer client;
     public String licensePlate;
-    public String km;
+    public Integer km;
 }

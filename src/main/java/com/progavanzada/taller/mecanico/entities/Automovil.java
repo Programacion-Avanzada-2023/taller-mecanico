@@ -47,7 +47,7 @@ public class Automovil {
     //revisar regex
     @Column(nullable = false, length = 8)
     @NotNull
-    public String km;
+    public Integer km;
    
     /**
      * Flag que denota si la entidad fue eliminada o no.

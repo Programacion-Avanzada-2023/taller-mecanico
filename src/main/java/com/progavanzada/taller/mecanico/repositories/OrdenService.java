@@ -32,9 +32,6 @@ public class OrdenService implements OrdenRepositoryCustom {
 
     @Autowired
     private ServicioService serviceServicio;
-    
-    @Autowired
-    private ClienteService serviceCliente;
 
     /**
      * Mappea una entidad de Orden de Trabajo hacia su DTO.
@@ -45,7 +42,6 @@ public class OrdenService implements OrdenRepositoryCustom {
      */
     public OrdenDto mapOrdenToDto(OrdenDeTrabajo entity) {
         AutomovilDto automovil = this.serviceAutomovil.mapAutomovilToDto(entity.automovil);
-        ClienteDto cliente = this.serviceCliente.mapClienteToDto(entity.client);
 
         List<ServicioDto> servicios = new ArrayList<ServicioDto>();
         for (Servicio servicio : entity.servicios)
@@ -54,7 +50,6 @@ public class OrdenService implements OrdenRepositoryCustom {
         OrdenDto dto = new OrdenDto();
         dto.id = entity.id;
         dto.automovil = automovil;
-        dto.cliente = cliente;
         dto.detalles = entity.detalles;
         dto.fechaCreacion = entity.fechaCreacion;
         dto.fechaModificacion = entity.fechaModificacion;
@@ -174,7 +169,15 @@ public class OrdenService implements OrdenRepositoryCustom {
     } */
     
     @Override
-    public List<OrdenDeTrabajo> buscarOrdenPorCliente(Integer clienteId) {
-        return this.repo.findByClient_IdAndEliminadoFalse(clienteId);
+    public List<OrdenDto> buscarOrdenPorCliente(Integer clienteId) {
+        // Buscar las ordenes por el cliente.
+        List<OrdenDeTrabajo> ordenes = this.repo.findByAutomovilClientId(clienteId);
+
+        // Mappearlas a su equivalente DTO.
+        List<OrdenDto> ordenesDto = new ArrayList<OrdenDto>();
+        for (OrdenDeTrabajo orden : ordenes)
+            ordenesDto.add(this.mapOrdenToDto(orden));
+
+        return ordenesDto;
     }
 }

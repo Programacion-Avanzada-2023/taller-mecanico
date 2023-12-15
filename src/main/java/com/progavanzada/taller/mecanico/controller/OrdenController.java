@@ -38,8 +38,8 @@ public class OrdenController {
     }
 
     @GetMapping("/cliente/{clienteId}")
-    public OrdenDto getCliente(@PathVariable Integer clienteId) {
-        return this.service.mapOrdenToDto((OrdenDeTrabajo) this.service.repo.findByClient_IdAndEliminadoFalse(clienteId));
+    public List<OrdenDto> getOrdenesByCliente(@PathVariable Integer clienteId) {
+        return this.service.buscarOrdenPorCliente(clienteId);
     }
     
     @GetMapping("/{id}")

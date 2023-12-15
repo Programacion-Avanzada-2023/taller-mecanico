@@ -31,6 +31,7 @@ public class MarcaService {
     public MarcaDto actualizarMarca(MarcaUpdateDto dto, Marca entity) {
         // Mappear campos a la entidad.
         entity.origen = dto.origen != null ? dto.origen : entity.origen;
+        entity.impuestoMarca = dto.impuestoMarca != null ? dto.impuestoMarca / 100 : entity.impuestoMarca;
         
         return this.mapMarcaToDto(this.repo.save(entity));
     }
