@@ -12,10 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TecnicoService implements ITecnicoService {
     @Autowired
-    private TecnicoRepository repo;
-
-    @Autowired
-    private OrdenService ordenService;
+    public TecnicoRepository repo;
 
     /**
      * Mappea una entidad de técnico hacia su DTO.
@@ -25,6 +22,9 @@ public class TecnicoService implements ITecnicoService {
      * @return El DTO del técnico.
      */
     public TecnicoDto mapTecnicoToDto(Tecnico entity) {
+        if (entity == null)
+            return null;
+
         PersonaDto persona = new PersonaDto();
         persona.id = entity.person.id;
         persona.name = entity.person.name;
@@ -43,22 +43,37 @@ public class TecnicoService implements ITecnicoService {
     }
 
     @Override
-    public Tecnico buscarPorId(Integer id) {
-        return this.repo.findByIdAndEliminadoFalse(id);
-    }
-
-    @Override
-    public List<Tecnico> buscarTodos() {
-        return this.repo.findByEliminadoFalse();
-    }
-
-    /* @Override
-    public List<OrdenDeTrabajo> buscarOrdenesDeTecnico(Integer id) {
+    public TecnicoDto buscarPorId(Integer id) {
         Tecnico tecnico = this.repo.findByIdAndEliminadoFalse(id);
 
         if (tecnico == null)
             return null;
 
-        return this.ordenService.buscarOrdenPorTecnico(id);
-    } */
+        return this.mapTecnicoToDto(tecnico);
+    }
+
+    @Override
+    public List<TecnicoDto> buscarTodos() {
+        List<Tecnico> tecnicos = this.repo.findByEliminadoFalse();
+
+        List<TecnicoDto> tecnicosDto = new java.util.ArrayList<TecnicoDto>();
+
+        for (Tecnico tecnico : tecnicos) {
+            tecnicosDto.add(this.mapTecnicoToDto(tecnico));
+        }
+
+        return tecnicosDto;
+    }
+
+    /*
+     * @Override
+     * public List<OrdenDeTrabajo> buscarOrdenesDeTecnico(Integer id) {
+     * Tecnico tecnico = this.repo.findByIdAndEliminadoFalse(id);
+     * 
+     * if (tecnico == null)
+     * return null;
+     * 
+     * return this.ordenService.buscarOrdenPorTecnico(id);
+     * }
+     */
 }

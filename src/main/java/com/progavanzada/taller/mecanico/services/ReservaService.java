@@ -10,6 +10,8 @@ import com.progavanzada.taller.mecanico.entities.Reserva;
 import com.progavanzada.taller.mecanico.entities.Tecnico;
 import com.progavanzada.taller.mecanico.repositories.ReservaRepository;
 import com.progavanzada.taller.mecanico.services.interfaces.IReservaService;
+import java.sql.Timestamp;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -20,9 +22,6 @@ public class ReservaService implements IReservaService {
 
     @Autowired
     public ReservaRepository repo;
-
-    @Autowired
-    private OrdenService ordenService;
 
     @Autowired
     private TecnicoService tecnicoService;
@@ -36,7 +35,7 @@ public class ReservaService implements IReservaService {
      * @param entity
      * @return
      */
-    public ReservaDto mapReservaToDto(Reserva entity) {
+    private ReservaDto mapReservaToDto(Reserva entity) {
         ClienteDto cliente = this.clienteService.mapClienteToDto(entity.client);
 
         TecnicoDto tecnico = this.tecnicoService.mapTecnicoToDto(entity.tecnico);
@@ -51,27 +50,52 @@ public class ReservaService implements IReservaService {
         return reserva;
     }
 
+    @Override
+    public List<ReservaDto> buscarReservas() {
+        List<Reserva> reservas = this.repo.findByEliminadoFalse();
+
+        // Filtrar la lista de reservas para que solo se muestren las que no han pasado.
+        reservas.removeIf(reserva -> reserva.fechaFin.before(new Timestamp(System.currentTimeMillis())));
+
+        List<ReservaDto> reservasDto = new java.util.ArrayList<ReservaDto>();
+        for (Reserva reserva : reservas)
+            reservasDto.add(this.mapReservaToDto(reserva));
+
+        return reservasDto;
+    }
+
+    @Override
+    public ReservaDto buscarReserva(Integer id) {
+        Reserva reserva = this.repo.findByIdAndEliminadoFalse(id);
+
+        if (reserva == null)
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La reserva especificada no existe.", null);
+
+        return this.mapReservaToDto(reserva);
+    }
+
+    @Override
     public ReservaDto actualizarReserva(ReservaUpdateDto dto, Reserva entity) {
         // Mappear campos a la entidad.
-        entity.fechaInicio = dto.fechaInicio != null ? dto.fechaInicio : entity.fechaInicio;
-        entity.fechaFin = dto.fechaFin != null ? dto.fechaFin : entity.fechaFin;
+        entity.fechaInicio = dto.fechaInicio != null ? Timestamp.valueOf(dto.fechaInicio) : entity.fechaInicio;
+        entity.fechaFin = dto.fechaFin != null ? Timestamp.valueOf(dto.fechaFin) : entity.fechaFin;
 
         Reserva reserva = this.repo.save(entity);
 
         return this.mapReservaToDto(reserva);
     }
 
-    public boolean borrarReserva(Reserva entity) {
+    @Override
+    public void eliminarReserva(Reserva entity) {
         entity.eliminado = true;
 
         this.repo.save(entity);
-
-        return true;
     }
 
+    @Override
     public ReservaDto crearReserva(ReservaCreateDto dto) {
         // Buscar el modelo.
-        Tecnico tecnico = this.tecnicoService.buscarPorId(dto.tecnico);
+        Tecnico tecnico = this.tecnicoService.repo.findByIdAndEliminadoFalse(dto.tecnico);
 
         if (tecnico == null)
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "El tecnico especificado no existe.", null);
@@ -86,8 +110,8 @@ public class ReservaService implements IReservaService {
         Reserva reserva = new Reserva();
         reserva.client = cliente;
         reserva.tecnico = tecnico;
-        reserva.fechaInicio = dto.fechaInicio;
-        reserva.fechaFin = dto.fechaFin;
+        reserva.fechaInicio = Timestamp.valueOf(dto.fechaInicio);
+        reserva.fechaFin = Timestamp.valueOf(dto.fechaFin);
 
         this.repo.save(reserva);
 

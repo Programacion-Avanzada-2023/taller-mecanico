@@ -6,7 +6,6 @@ import com.progavanzada.taller.mecanico.controller.dto.ReservaUpdateDto;
 import com.progavanzada.taller.mecanico.entities.Reserva;
 import com.progavanzada.taller.mecanico.services.ReservaService;
 import jakarta.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,54 +24,46 @@ import org.springframework.web.server.ResponseStatusException;
  * @author yukal
  */
 @RestController
-@RequestMapping(path = "/reserva")
+@RequestMapping(path = "/reservas")
 public class ReservaController {
-        
+
     @Autowired
     private ReservaService service;
-    
+
     @GetMapping
     public List<ReservaDto> getReservas() {
-        List<Reserva> reservas = this.service.repo.findByEliminadoFalse();
-
-        List<ReservaDto> reservasDto = new ArrayList<ReservaDto>();
-        for (Reserva reserva : reservas) {
-            reservasDto.add(this.service.mapReservaToDto(reserva));
-        }
-
-        return reservasDto;
+        return this.service.buscarReservas();
     }
-    
+
     @GetMapping("/{id}")
     public ReservaDto getReserva(@PathVariable("id") Integer id) {
-        return this.service.mapReservaToDto(this.service.repo.findByIdAndEliminadoFalse(id));
+        return this.service.buscarReserva(id);
     }
-    
+
     @PostMapping
     public ReservaDto createReserva(@Valid @RequestBody ReservaCreateDto dto) {
         return this.service.crearReserva(dto);
     }
-    
+
     @PatchMapping("/{id}")
-    public ReservaDto updateReserva(@PathVariable("id") Integer id, @Valid @RequestBody ReservaUpdateDto dto) {
+    public ReservaDto updateReserva(@PathVariable(name = "id", required = true) Integer id, @Valid @RequestBody ReservaUpdateDto dto) {
         Reserva reserva = this.service.repo.findByIdAndEliminadoFalse(id);
 
-        if (reserva == null) {
+        if (reserva == null)
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La reserva especificada no existe.", null);
-        }
 
         return this.service.actualizarReserva(dto, reserva);
     }
-    
+
     @DeleteMapping("/{id}")
-    public boolean deleteOrden(@PathVariable("id") Integer id) {
+    public boolean deleteReserva(@PathVariable(name = "id", required = true) Integer id) {
         Reserva reserva = this.service.repo.findByIdAndEliminadoFalse(id);
 
-        if (reserva == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La orden especificada no existe.", null);
-        }
+        if (reserva == null)
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La reserva especificada no existe.", null);
 
-        return this.service.borrarReserva(reserva);
+        this.service.eliminarReserva(reserva);
+        return true;
     }
-    
+
 }

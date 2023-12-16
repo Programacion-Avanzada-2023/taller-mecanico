@@ -15,4 +15,6 @@ public class OrdenUpdateDto {
 
     @Size(max = 512, message = "El mensaje insertado supera los 512 caractéres.")
     public String detalles;
+
+    public Integer tecnico;
 }

@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "tm_cambios_estado_orden")
@@ -31,5 +32,5 @@ public class CambioEstadoOrden {
      * Fecha de creación del cambio de estado ISO8601, calculada automáticamente.
      */
     @Column(nullable = false)
-    public String fechaCambio = java.time.LocalDateTime.now().toString();
+    public Timestamp fechaCambio = Timestamp.valueOf(java.time.LocalDateTime.now());
 }

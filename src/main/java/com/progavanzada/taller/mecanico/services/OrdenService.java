@@ -6,10 +6,13 @@ import com.progavanzada.taller.mecanico.controller.dto.OrdenDto;
 import com.progavanzada.taller.mecanico.controller.dto.OrdenServicioDto;
 import com.progavanzada.taller.mecanico.controller.dto.OrdenUpdateDto;
 import com.progavanzada.taller.mecanico.controller.dto.ServicioDto;
+import com.progavanzada.taller.mecanico.controller.dto.TecnicoDto;
 import com.progavanzada.taller.mecanico.entities.Automovil;
 import com.progavanzada.taller.mecanico.entities.CambioEstadoOrden;
 import com.progavanzada.taller.mecanico.entities.OrdenDeTrabajo;
 import com.progavanzada.taller.mecanico.entities.Servicio;
+import com.progavanzada.taller.mecanico.entities.Tecnico;
+import com.progavanzada.taller.mecanico.entities.objects.EstadoOrden;
 import com.progavanzada.taller.mecanico.repositories.CambioEstadoOrdenRepository;
 import com.progavanzada.taller.mecanico.repositories.OrdenRepository;
 import com.progavanzada.taller.mecanico.services.interfaces.IOrdenService;
@@ -38,6 +41,9 @@ public class OrdenService implements IOrdenService {
     private AutomovilService serviceAutomovil;
 
     @Autowired
+    private TecnicoService serviceTecnico;
+
+    @Autowired
     private ServicioService serviceServicio;
 
     /**
@@ -50,6 +56,8 @@ public class OrdenService implements IOrdenService {
     public OrdenDto mapOrdenToDto(OrdenDeTrabajo entity) {
         AutomovilDto automovil = this.serviceAutomovil.mapAutomovilToDto(entity.automovil);
 
+        TecnicoDto tecnico = this.serviceTecnico.mapTecnicoToDto(entity.tecnico);
+
         List<ServicioDto> servicios = new ArrayList<ServicioDto>();
         for (Servicio servicio : entity.servicios)
             servicios.add(this.serviceServicio.mapServiceToDto(servicio));
@@ -60,6 +68,8 @@ public class OrdenService implements IOrdenService {
         OrdenDto dto = new OrdenDto();
         dto.id = entity.id;
         dto.automovil = automovil;
+        dto.tecnico = tecnico;
+        dto.confirmada = entity.confirmada;
         dto.estado = entity.estado;
         dto.detalles = entity.detalles;
         dto.fechaCreacion = entity.fechaCreacion;
@@ -72,9 +82,39 @@ public class OrdenService implements IOrdenService {
 
     @Override
     public OrdenDto actualizarOrden(OrdenUpdateDto dto, OrdenDeTrabajo entity) {
+        // Si la orden se confirmó, no se puede modificar.
+        if (entity.confirmada)
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "La orden de trabajo " + entity.id + " ya se confirmó, no se puede modificar.", null);
+
         // Mappear campos a la entidad.
         entity.detalles = dto.detalles;
         entity.confirmada = dto.confirmada;
+
+        // Si se especificó un técnico, buscarlo.
+        if (dto.tecnico != null) {
+            // Buscar el técnico.
+            Tecnico tecnico = this.serviceTecnico.repo.findByIdAndEliminadoFalse(dto.tecnico);
+
+            if (tecnico == null)
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "El técnico especificado no existe.", null);
+
+            entity.tecnico = tecnico;
+        }
+
+        // Se confirmó la orden?
+        if (entity.confirmada) {
+            // Cambiar el estado de la orden.
+            entity.estado = EstadoOrden.CONFIRMADA.toString();
+
+            // Registrar un nuevo cambio de estado.
+            CambioEstadoOrden cambio = new CambioEstadoOrden();
+            cambio.orden = entity;
+            cambio.estado = EstadoOrden.CONFIRMADA.toString();
+            cambio.fechaCambio = Timestamp.valueOf(java.time.LocalDateTime.now());
+
+            this.repoCambioEstadoOrden.save(cambio);
+        }
 
         return this.mapOrdenToDto(this.repo.save(entity));
     }
@@ -105,9 +145,21 @@ public class OrdenService implements IOrdenService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "El automóvil especificado no existe.", null);
         }
 
+        // Si se especificó un técnico, buscarlo.
+        Tecnico tecnico = null;
+
+        if (dto.tecnico != null) {
+            tecnico = this.serviceTecnico.repo.findByIdAndEliminadoFalse(dto.tecnico);
+
+            if (tecnico == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "El técnico especificado no existe.", null);
+            }
+        }
+
         OrdenDeTrabajo orden = new OrdenDeTrabajo();
         orden.automovil = automovil;
         orden.servicios = servicios;
+        orden.tecnico = tecnico;
         orden.detalles = dto.detalles;
         orden.fechaCreacion = Timestamp.valueOf(java.time.LocalDateTime.now());
         orden.fechaModificacion = Timestamp.valueOf(java.time.LocalDateTime.now());

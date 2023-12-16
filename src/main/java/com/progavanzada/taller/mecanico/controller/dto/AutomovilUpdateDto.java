@@ -7,7 +7,6 @@ package com.progavanzada.taller.mecanico.controller.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.progavanzada.taller.mecanico.entities.objects.RegExPatterns;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 
 /**
  *

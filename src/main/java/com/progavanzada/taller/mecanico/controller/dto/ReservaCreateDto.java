@@ -4,7 +4,7 @@
  */
 package com.progavanzada.taller.mecanico.controller.dto;
 
-import java.sql.Timestamp;
+import com.progavanzada.taller.mecanico.entities.pipes.IsDateAfterToday;
 
 /**
  *
@@ -12,7 +12,12 @@ import java.sql.Timestamp;
  */
 public class ReservaCreateDto {
     public Integer client;
+    
     public Integer tecnico;
-    public Timestamp fechaInicio;
-    public Timestamp fechaFin;
+
+    @IsDateAfterToday(message = "La fecha de inicio no puede estar en el pasado, o el formato es incorrecto (yyyy-mm-dd hh:mm:ss)")
+    public String fechaInicio;
+
+    @IsDateAfterToday(message = "La fecha de fin no puede estar en el pasado, o el formato es incorrecto (yyyy-mm-dd hh:mm:ss)")
+    public String fechaFin;
 }

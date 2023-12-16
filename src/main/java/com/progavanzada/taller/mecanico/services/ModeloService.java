@@ -47,6 +47,7 @@ public class ModeloService implements IModeloService {
         MarcaDto marcaDto = new MarcaDto();
         marcaDto.id = modelo.brand.id;
         marcaDto.name = modelo.brand.name;
+        marcaDto.impuestoMarca = modelo.brand.impuestoMarca;
         
         resDto.brand = marcaDto;
         return resDto;
