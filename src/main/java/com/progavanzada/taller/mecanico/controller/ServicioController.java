@@ -4,7 +4,7 @@ import com.progavanzada.taller.mecanico.controller.dto.ServicioCreateDto;
 import com.progavanzada.taller.mecanico.controller.dto.ServicioDto;
 import com.progavanzada.taller.mecanico.controller.dto.ServicioUpdateDto;
 import com.progavanzada.taller.mecanico.entities.Servicio;
-import com.progavanzada.taller.mecanico.repositories.ServicioService;
+import com.progavanzada.taller.mecanico.services.ServicioService;
 import jakarta.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;

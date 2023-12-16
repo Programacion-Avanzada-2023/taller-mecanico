@@ -1,4 +1,4 @@
-package com.progavanzada.taller.mecanico.repositories;
+package com.progavanzada.taller.mecanico.services.interfaces;
 
 import com.progavanzada.taller.mecanico.controller.dto.MarcaCreateDto;
 import com.progavanzada.taller.mecanico.controller.dto.MarcaDto;
@@ -8,7 +8,7 @@ import com.progavanzada.taller.mecanico.entities.Marca;
 /**
  * Métodos personalizados que debe integrar el repositorio de Marca.
  */
-public interface MarcaRepositoryCustom {
+public interface IMarcaService {
 
     /**
      * Actualiza los campos de una marca aplicando el patrón DTO.

@@ -12,7 +12,7 @@ import java.sql.Timestamp;
  */
 public class ReservaCreateDto {
     public Integer client;
-    //public Integer tecnico;
+    public Integer tecnico;
     public Timestamp fechaInicio;
-    //public String fechaFin;
+    public Timestamp fechaFin;
 }

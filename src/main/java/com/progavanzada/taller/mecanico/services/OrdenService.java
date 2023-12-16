@@ -1,4 +1,4 @@
-package com.progavanzada.taller.mecanico.repositories;
+package com.progavanzada.taller.mecanico.services;
 
 import com.progavanzada.taller.mecanico.controller.dto.AutomovilDto;
 import com.progavanzada.taller.mecanico.controller.dto.ClienteDto;
@@ -8,8 +8,13 @@ import com.progavanzada.taller.mecanico.controller.dto.OrdenServicioDto;
 import com.progavanzada.taller.mecanico.controller.dto.OrdenUpdateDto;
 import com.progavanzada.taller.mecanico.controller.dto.ServicioDto;
 import com.progavanzada.taller.mecanico.entities.Automovil;
+import com.progavanzada.taller.mecanico.entities.CambioEstadoOrden;
 import com.progavanzada.taller.mecanico.entities.OrdenDeTrabajo;
 import com.progavanzada.taller.mecanico.entities.Servicio;
+import com.progavanzada.taller.mecanico.repositories.CambioEstadoOrdenRepository;
+import com.progavanzada.taller.mecanico.repositories.OrdenRepository;
+import com.progavanzada.taller.mecanico.services.interfaces.IOrdenService;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +27,13 @@ import org.springframework.web.server.ResponseStatusException;
  * @author yukal
  */
 @Service
-public class OrdenService implements OrdenRepositoryCustom {
+public class OrdenService implements IOrdenService {
 
     @Autowired
     public OrdenRepository repo;
+
+    @Autowired
+    private CambioEstadoOrdenRepository repoCambioEstadoOrden;
 
     @Autowired
     private AutomovilService serviceAutomovil;
@@ -47,13 +55,18 @@ public class OrdenService implements OrdenRepositoryCustom {
         for (Servicio servicio : entity.servicios)
             servicios.add(this.serviceServicio.mapServiceToDto(servicio));
 
+        // Buscar todos los cambios de estado de la orden.
+        List<CambioEstadoOrden> cambios = this.repoCambioEstadoOrden.findByOrdenId(entity.id);
+
         OrdenDto dto = new OrdenDto();
         dto.id = entity.id;
         dto.automovil = automovil;
+        dto.estado = entity.estado;
         dto.detalles = entity.detalles;
         dto.fechaCreacion = entity.fechaCreacion;
         dto.fechaModificacion = entity.fechaModificacion;
         dto.servicios = servicios;
+        dto.cambiosEstado = cambios;
 
         return dto;
     }
@@ -62,6 +75,7 @@ public class OrdenService implements OrdenRepositoryCustom {
     public OrdenDto actualizarOrden(OrdenUpdateDto dto, OrdenDeTrabajo entity) {
         // Mappear campos a la entidad.
         entity.detalles = dto.detalles;
+        entity.confirmada = dto.confirmada;
 
         return this.mapOrdenToDto(this.repo.save(entity));
     }
@@ -96,8 +110,8 @@ public class OrdenService implements OrdenRepositoryCustom {
         orden.automovil = automovil;
         orden.servicios = servicios;
         orden.detalles = dto.detalles;
-        orden.fechaCreacion = java.time.LocalDateTime.now().toString();
-        orden.fechaModificacion = java.time.LocalDateTime.now().toString();
+        orden.fechaCreacion = Timestamp.valueOf(java.time.LocalDateTime.now());
+        orden.fechaModificacion = Timestamp.valueOf(java.time.LocalDateTime.now());
 
         this.repo.save(orden);
 
@@ -123,7 +137,7 @@ public class OrdenService implements OrdenRepositoryCustom {
 
         // Agregarlo a la lista y actualizar la fecha de modificación.
         orden.servicios.add(servicio);
-        orden.fechaModificacion = java.time.LocalDateTime.now().toString();
+        orden.fechaModificacion = Timestamp.valueOf(java.time.LocalDateTime.now());
 
         this.repo.save(orden);
 
@@ -156,18 +170,20 @@ public class OrdenService implements OrdenRepositoryCustom {
         // Eliminar el servicio de la lista, y actualizar la fecha de modificación de la
         // orden.
         orden.servicios.remove(servicio);
-        orden.fechaModificacion = java.time.LocalDateTime.now().toString();
+        orden.fechaModificacion = Timestamp.valueOf(java.time.LocalDateTime.now());
 
         this.repo.save(orden);
 
         return this.mapOrdenToDto(orden);
     }
 
-    /* @Override
-    public List<OrdenDeTrabajo> buscarOrdenPorTecnico(Integer id) {
-        return this.repo.findByTecnico(id);
-    } */
-    
+    /*
+     * @Override
+     * public List<OrdenDeTrabajo> buscarOrdenPorTecnico(Integer id) {
+     * return this.repo.findByTecnico(id);
+     * }
+     */
+
     @Override
     public List<OrdenDto> buscarOrdenPorCliente(Integer clienteId) {
         // Buscar las ordenes por el cliente.
@@ -179,5 +195,13 @@ public class OrdenService implements OrdenRepositoryCustom {
             ordenesDto.add(this.mapOrdenToDto(orden));
 
         return ordenesDto;
+    }
+
+    @Override
+    public List<CambioEstadoOrden> obtenerCambiosDeEstadoOrden(String id) {
+        // Buscar en el repositorio de cambios de estado.
+        List<CambioEstadoOrden> cambios = this.repoCambioEstadoOrden.findByOrdenId(id);
+
+        return cambios;
     }
 }

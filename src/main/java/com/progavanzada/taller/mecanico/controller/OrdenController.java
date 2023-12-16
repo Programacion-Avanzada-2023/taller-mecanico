@@ -5,7 +5,7 @@ import com.progavanzada.taller.mecanico.controller.dto.OrdenDto;
 import com.progavanzada.taller.mecanico.controller.dto.OrdenServicioDto;
 import com.progavanzada.taller.mecanico.controller.dto.OrdenUpdateDto;
 import com.progavanzada.taller.mecanico.entities.OrdenDeTrabajo;
-import com.progavanzada.taller.mecanico.repositories.OrdenService;
+import com.progavanzada.taller.mecanico.services.OrdenService;
 import jakarta.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;

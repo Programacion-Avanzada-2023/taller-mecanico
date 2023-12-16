@@ -1,9 +1,10 @@
-package com.progavanzada.taller.mecanico.repositories;
+package com.progavanzada.taller.mecanico.services.interfaces;
 
 import com.progavanzada.taller.mecanico.controller.dto.OrdenCreateDto;
 import com.progavanzada.taller.mecanico.controller.dto.OrdenDto;
 import com.progavanzada.taller.mecanico.controller.dto.OrdenServicioDto;
 import com.progavanzada.taller.mecanico.controller.dto.OrdenUpdateDto;
+import com.progavanzada.taller.mecanico.entities.CambioEstadoOrden;
 import com.progavanzada.taller.mecanico.entities.OrdenDeTrabajo;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
  *
  * @author yukal
  */
-public interface OrdenRepositoryCustom {
+public interface IOrdenService {
 
     /**
      * Actualiza los campos de una marca aplicando el patrón DTO.
@@ -69,6 +70,15 @@ public interface OrdenRepositoryCustom {
      * @return La lista de órdenes de trabajo asignadas a este técnico.
      */
     // List<OrdenDeTrabajo> buscarOrdenPorTecnico(Integer id);
+
+    /**
+     * Busca los cambios de estado de una orden de trabajo.
+     *
+     * @param id El identificador único de la orden de trabajo.
+     * 
+     * @return La lista de cambios de estado de la orden de trabajo.
+     */
+    List<CambioEstadoOrden> obtenerCambiosDeEstadoOrden(String id);
 
     /**
      * Busca órdenes de trabajo basadas en el cliente que las solicitó.

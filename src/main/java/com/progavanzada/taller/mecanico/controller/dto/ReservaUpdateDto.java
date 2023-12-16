@@ -18,5 +18,6 @@ public class ReservaUpdateDto {
     @Temporal(TemporalType.TIMESTAMP)
     public Timestamp fechaInicio;
     
-    //public String fechaFin;
+    @Temporal(TemporalType.TIMESTAMP)
+    public Timestamp fechaFin;
 }

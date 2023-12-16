@@ -1,4 +1,4 @@
-package com.progavanzada.taller.mecanico.repositories;
+package com.progavanzada.taller.mecanico.services.interfaces;
 
 import com.progavanzada.taller.mecanico.entities.OrdenDeTrabajo;
 import com.progavanzada.taller.mecanico.entities.Tecnico;
@@ -11,6 +11,15 @@ public interface ITecnicoService {
      * @return La lista de técnicos.
      */
     List<Tecnico> buscarTodos();
+
+    /**
+     * Busca a un técnico por su identificador único.
+     *
+     * @param id El identificador único del técnico.
+     *
+     * @return El técnico encontrado.
+     */
+    Tecnico buscarPorId(Integer id);
 
     /**
      * Realiza un cruce de información entre el técnico y todas las órdenes asignadas a él.

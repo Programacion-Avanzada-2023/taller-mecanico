@@ -3,7 +3,7 @@ package com.progavanzada.taller.mecanico.controller;
 import com.progavanzada.taller.mecanico.controller.dto.ClienteCreateDto;
 import com.progavanzada.taller.mecanico.controller.dto.ClienteDto;
 import com.progavanzada.taller.mecanico.entities.Cliente;
-import com.progavanzada.taller.mecanico.repositories.ClienteService;
+import com.progavanzada.taller.mecanico.services.ClienteService;
 import jakarta.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;

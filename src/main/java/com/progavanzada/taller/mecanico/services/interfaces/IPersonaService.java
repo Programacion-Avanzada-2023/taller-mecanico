@@ -1,4 +1,4 @@
-package com.progavanzada.taller.mecanico.repositories;
+package com.progavanzada.taller.mecanico.services.interfaces;
 
 import com.progavanzada.taller.mecanico.controller.dto.PersonaUpdateDto;
 import com.progavanzada.taller.mecanico.entities.Persona;
@@ -6,7 +6,7 @@ import com.progavanzada.taller.mecanico.entities.Persona;
 /**
  * Métodos personalizados para el repositorio de Persona.
  */
-public interface PersonaRepositoryCustom {
+public interface IPersonaService {
     /**
      * Actualiza los campos de una persona aplicando el patrón DTO.
      *

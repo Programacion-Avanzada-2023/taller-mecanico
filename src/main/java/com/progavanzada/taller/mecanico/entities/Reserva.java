@@ -30,7 +30,7 @@ public class Reserva {
     @Column(nullable = false)
     public Timestamp fechaInicio = Timestamp.valueOf(java.time.LocalDateTime.now());
     
-    @Column(nullable = true)
+    @Column(nullable = false)
     public Timestamp fechaFin;
     
     @Column(nullable = false)

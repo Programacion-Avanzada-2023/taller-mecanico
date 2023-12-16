@@ -4,7 +4,7 @@ import com.progavanzada.taller.mecanico.controller.dto.ReservaCreateDto;
 import com.progavanzada.taller.mecanico.controller.dto.ReservaDto;
 import com.progavanzada.taller.mecanico.controller.dto.ReservaUpdateDto;
 import com.progavanzada.taller.mecanico.entities.Reserva;
-import com.progavanzada.taller.mecanico.repositories.ReservaService;
+import com.progavanzada.taller.mecanico.services.ReservaService;
 import jakarta.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
