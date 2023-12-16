@@ -238,7 +238,7 @@ public class OrdenService implements IOrdenService {
     @Override
     public List<OrdenDto> buscarOrdenPorCliente(Integer clienteId) {
         // Buscar las ordenes por el cliente.
-        List<OrdenDeTrabajo> ordenes = this.repo.findByAutomovilClientId(clienteId);
+        List<OrdenDeTrabajo> ordenes = this.repo.findByAutomovilClientIdAndEliminadoFalse(clienteId);
 
         // Mappearlas a su equivalente DTO.
         List<OrdenDto> ordenesDto = new ArrayList<OrdenDto>();
