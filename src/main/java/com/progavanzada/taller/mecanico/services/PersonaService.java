@@ -5,7 +5,6 @@ import com.progavanzada.taller.mecanico.entities.Persona;
 import com.progavanzada.taller.mecanico.repositories.PersonaRepository;
 import com.progavanzada.taller.mecanico.services.interfaces.IPersonaService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 /**

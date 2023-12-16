@@ -1,10 +1,8 @@
 package com.progavanzada.taller.mecanico.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.progavanzada.taller.mecanico.entities.objects.RegExPatterns;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 /**

@@ -1,7 +1,6 @@
 package com.progavanzada.taller.mecanico.services;
 
 import com.progavanzada.taller.mecanico.controller.dto.AutomovilDto;
-import com.progavanzada.taller.mecanico.controller.dto.ClienteDto;
 import com.progavanzada.taller.mecanico.controller.dto.OrdenCreateDto;
 import com.progavanzada.taller.mecanico.controller.dto.OrdenDto;
 import com.progavanzada.taller.mecanico.controller.dto.OrdenServicioDto;

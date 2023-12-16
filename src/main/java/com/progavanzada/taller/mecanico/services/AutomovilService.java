@@ -4,7 +4,6 @@ import com.progavanzada.taller.mecanico.controller.dto.AutomovilCreateDto;
 import com.progavanzada.taller.mecanico.controller.dto.AutomovilDto;
 import com.progavanzada.taller.mecanico.controller.dto.AutomovilUpdateDto;
 import com.progavanzada.taller.mecanico.controller.dto.ClienteDto;
-import com.progavanzada.taller.mecanico.controller.dto.MarcaDto;
 import com.progavanzada.taller.mecanico.controller.dto.ModeloDto;
 import com.progavanzada.taller.mecanico.entities.Automovil;
 import com.progavanzada.taller.mecanico.entities.Cliente;

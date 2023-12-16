@@ -2,7 +2,6 @@ package com.progavanzada.taller.mecanico.services.interfaces;
 
 import com.progavanzada.taller.mecanico.controller.dto.ClienteCreateDto;
 import com.progavanzada.taller.mecanico.controller.dto.ClienteDto;
-import com.progavanzada.taller.mecanico.controller.dto.ClienteUpdateDto;
 import com.progavanzada.taller.mecanico.entities.Cliente;
 
 

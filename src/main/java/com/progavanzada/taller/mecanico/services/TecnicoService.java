@@ -2,7 +2,6 @@ package com.progavanzada.taller.mecanico.services;
 
 import com.progavanzada.taller.mecanico.controller.dto.PersonaDto;
 import com.progavanzada.taller.mecanico.controller.dto.TecnicoDto;
-import com.progavanzada.taller.mecanico.entities.OrdenDeTrabajo;
 import com.progavanzada.taller.mecanico.entities.Tecnico;
 import com.progavanzada.taller.mecanico.repositories.TecnicoRepository;
 import com.progavanzada.taller.mecanico.services.interfaces.ITecnicoService;

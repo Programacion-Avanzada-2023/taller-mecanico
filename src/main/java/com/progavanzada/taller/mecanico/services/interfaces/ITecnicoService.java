@@ -1,6 +1,5 @@
 package com.progavanzada.taller.mecanico.services.interfaces;
 
-import com.progavanzada.taller.mecanico.entities.OrdenDeTrabajo;
 import com.progavanzada.taller.mecanico.entities.Tecnico;
 import java.util.List;
 
