@@ -14,15 +14,15 @@ import java.sql.Timestamp;
 public class Reserva {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     public Integer id;
     
-    @OneToOne(targetEntity = Cliente.class, optional = false)
+    @ManyToOne(targetEntity = Cliente.class)
     @JoinColumn(name = "cliente_id")
     @NotNull
     public Cliente client;
     
-    @OneToOne(targetEntity = Tecnico.class, optional = false)
+    @ManyToOne(targetEntity = Tecnico.class)
     @JoinColumn(name = "tecnico_id")
     @NotNull
     public Tecnico tecnico;
@@ -33,7 +33,7 @@ public class Reserva {
     @Column(nullable = false)
     public Timestamp fechaFin;
     
-    @Column(nullable = false)
+    @Column(nullable = false)   
     @JsonIgnore
     public boolean eliminado = false;
 }
