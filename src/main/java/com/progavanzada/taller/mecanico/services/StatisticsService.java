@@ -1,0 +1,46 @@
+package com.progavanzada.taller.mecanico.services;
+
+import com.progavanzada.taller.mecanico.controller.dto.EstadisticaServicioSolicitado;
+import com.progavanzada.taller.mecanico.entities.objects.Constants;
+import com.progavanzada.taller.mecanico.repositories.ServicioRepository;
+import com.progavanzada.taller.mecanico.services.interfaces.IStatisticsService;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class StatisticsService implements IStatisticsService {
+    @Autowired
+    private ServicioRepository repo;
+
+    @Override
+    public List<EstadisticaServicioSolicitado> generarEstadisticaServiciosMasSolicitados() {
+        // Con las ordenes de trabajo, escarbar los servicios asociados a cada una de
+        // ellas y empezar el conteo.
+        //
+        // Para cada servicio, se debe contar la cantidad de veces que se ha solicitado,
+        // la fecha de la última vez, la fecha de la primera vez y la cantidad de
+        // clientes que lo han solicitado.
+        List<Object[]> resultList = this.repo.getEstadisticaServicioSolicitado();
+        List<EstadisticaServicioSolicitado> estadisticas = new ArrayList<>();
+
+        for (Object[] result : resultList) {
+            EstadisticaServicioSolicitado estadistica = new EstadisticaServicioSolicitado(
+                (Integer) result[0],            // idServicio
+                (String) result[1],             // nombreServicio
+                (Long) result[2],            // cantidadSolicitudes
+                (Date) result[3],               // fechaUltimaSolicitud
+                (Date) result[4],               // fechaPrimeraSolicitud
+                (Long) result[5]             // cantidadTecnicos
+            );
+            estadisticas.add(estadistica);
+        }
+
+        return estadisticas;
+    }
+}

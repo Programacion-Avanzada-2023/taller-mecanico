@@ -1,10 +1,12 @@
 package com.progavanzada.taller.mecanico.controller;
 
+import com.progavanzada.taller.mecanico.controller.dto.EstadisticaServicioSolicitado;
 import com.progavanzada.taller.mecanico.controller.dto.ServicioCreateDto;
 import com.progavanzada.taller.mecanico.controller.dto.ServicioDto;
 import com.progavanzada.taller.mecanico.controller.dto.ServicioUpdateDto;
 import com.progavanzada.taller.mecanico.entities.Servicio;
 import com.progavanzada.taller.mecanico.services.ServicioService;
+import com.progavanzada.taller.mecanico.services.StatisticsService;
 import jakarta.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +26,9 @@ public class ServicioController {
     @Autowired
     private ServicioService service;
 
+    @Autowired
+    private StatisticsService statisticsService;
+
     /**
      * Busca todos los servicios del dominio.
      *
@@ -32,13 +37,23 @@ public class ServicioController {
     @GetMapping
     public List<ServicioDto> getServicios() {
         List<Servicio> servicios = this.service.repo.findByEliminadoFalse();
-        
+
         List<ServicioDto> serviciosDto = new ArrayList<ServicioDto>();
         for (Servicio servicio : servicios) {
             serviciosDto.add(this.service.mapServiceToDto(servicio));
         }
-        
+
         return serviciosDto;
+    }
+
+    /**
+     * Obtiene las estadísticas de los servicios del dominio.
+     *
+     * @return Un listado con las estadisticas.
+     */
+    @GetMapping(path = "/estadisticas")
+    public List<EstadisticaServicioSolicitado> getEstadisticas() {
+        return this.statisticsService.generarEstadisticaServiciosMasSolicitados();
     }
 
     /**
@@ -52,9 +67,9 @@ public class ServicioController {
     public ServicioDto getServicio(@PathVariable("id") Integer id) {
         return this.service.mapServiceToDto(this.service.repo.findByIdAndEliminadoFalse(id));
     }
-   
+
     /**
-     * Crea un nuevo servicio  acorde al tipado de la entidad.
+     * Crea un nuevo servicio acorde al tipado de la entidad.
      *
      * @param marca El cuerpo de una marca nueva.
      *
@@ -64,7 +79,7 @@ public class ServicioController {
     public ServicioDto createServicio(@Valid @RequestBody ServicioCreateDto dto) {
         return this.service.crearServicio(dto);
     }
-    
+
     /**
      * Modifica los campos de un servicio existente.
      *
@@ -76,15 +91,15 @@ public class ServicioController {
     public ServicioDto updateServicio(@PathVariable Integer id, @Valid @RequestBody ServicioUpdateDto body) {
         // Buscar la entidad a modificar.
         Servicio servicio = this.service.repo.findByIdAndEliminadoFalse(id);
-        
+
         // Si no hay servicio, detener la ejecución y largar la excepción.
         if (servicio == null)
-           throw new ResponseStatusException(HttpStatus.NOT_FOUND, "El servicio especificado no existe.", null);
-        
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "El servicio especificado no existe.", null);
+
         // Aplicar las modificaciones.
         return this.service.actualizarServicio(body, servicio);
     }
-   
+
     /**
      * Marca el borrado de una entidad de Servicio.
      *
@@ -96,11 +111,11 @@ public class ServicioController {
     public boolean deleteServicio(@PathVariable Integer id) {
         // Buscar la entidad a borrar.
         Servicio servicio = this.service.repo.findByIdAndEliminadoFalse(id);
-        
+
         // Si no hay servicio, detener la ejecución y largar la excepción.
         if (servicio == null)
-           throw new ResponseStatusException(HttpStatus.NOT_FOUND, "El servicio especificado no existe.", null);
-        
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "El servicio especificado no existe.", null);
+
         // Marcar como eliminada.
         return this.service.borrarServicio(servicio);
     }
