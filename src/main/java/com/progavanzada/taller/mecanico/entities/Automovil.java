@@ -31,7 +31,7 @@ public class Automovil {
     /**
      * El dueño de este vehículo. Debe ser siempre una persona de tipo cliente.
      */
-    @OneToOne(targetEntity = Cliente.class, optional = false)
+    @ManyToOne(targetEntity = Cliente.class, optional = false)
     @JoinColumn(name = "cliente_id")
     @NotNull
     public Cliente client;

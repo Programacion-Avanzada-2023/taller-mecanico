@@ -17,14 +17,14 @@ public class MarcaService {
 
     @Autowired
     public MarcaRepository repo;
-    
+
     public MarcaDto mapMarcaToDto(Marca entity) {
         MarcaDto dto = new MarcaDto();
         dto.id = entity.id;
         dto.name = entity.name;
         dto.origen = entity.origen;
         dto.impuestoMarca = entity.impuestoMarca;
-        
+
         return dto;
     }
 
@@ -32,7 +32,7 @@ public class MarcaService {
         // Mappear campos a la entidad.
         entity.origen = dto.origen != null ? dto.origen : entity.origen;
         entity.impuestoMarca = dto.impuestoMarca != null ? dto.impuestoMarca / 100 : entity.impuestoMarca;
-        
+
         return this.mapMarcaToDto(this.repo.save(entity));
     }
 
@@ -43,16 +43,16 @@ public class MarcaService {
         this.repo.save(entity);
         return true;
     }
-    
+
     public MarcaDto crearMarca(MarcaCreateDto dto) {
         Marca marca = new Marca();
         marca.name = dto.name;
         marca.origen = dto.origen;
-        marca.impuestoMarca = dto.impuestoMarca;
-        
+        marca.impuestoMarca = (float) dto.impuestoMarca / 100.0f;
+
         this.repo.save(marca);
-        
+
         return this.mapMarcaToDto(marca);
-        
+
     }
 }

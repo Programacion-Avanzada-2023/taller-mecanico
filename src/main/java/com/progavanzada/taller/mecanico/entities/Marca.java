@@ -22,12 +22,12 @@ public class Marca {
     /**
      * Un nombre visual sobre que marca es.
      */
-    @Size(min = 4, max = 32, message = "El nombre de una marca no puede superar los 32 caractéres.")
+    @Size(min = 2, max = 32, message = "El nombre de una marca no puede superar los 32 caractéres.")
     @Column(nullable = false, length = 32)
     @NotNull
     public String name;
     
-    @Size(min = 4, max = 32, message = "El origen de una marca no puede superar los 32 caractéres.")
+    @Size(min = 2, max = 32, message = "El origen de una marca no puede superar los 32 caractéres.")
     @Column(nullable = false, length = 32)
     @NotNull
     public String origen;
