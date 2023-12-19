@@ -3,6 +3,7 @@
 Este repositorio sirve como el backend que da soporte al proyecto de **taller mecánico** propuesto para la cátedra de **Programación Avanzada 2023**.
 
 ## Integrantes
+- IBARRA, Alvaro Fidel
 - PALACIOS, Lucas
 - PEDRAZA, Santiago
 - MARTINI, Leopoldo
@@ -15,11 +16,13 @@ Este repositorio sirve como el backend que da soporte al proyecto de **taller me
 
 ```
 spring.jpa.hibernate.ddl-auto=update
-spring.datasource.url=jdbc:mysql://127.0.0.1:3306/taller
+spring.datasource.url=jdbc:mysql://127.0.0.1:3306/taller?useUnicode=true&characterEncoding=UTF-8
 spring.datasource.username=root
 spring.datasource.password=test123
 
-spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
+
+server.error.include-message: always
 ```
 
 2. Ejecute el proyecto con el script `spring-boot run`.
@@ -38,4 +41,10 @@ Luego se entra a la instancia y se crea la base de datos de la siguiente forma:
 $ docker exec -it mysql mysql -u root -p
 # Crear base de datos, cambiar el nombre a lo que se necesite
 $ mysql> CREATE DATABASE taller;
+```
+
+(Opcional) Para obtener datos de prueba en una primer instancia, asegurarse de importar el script de MySQL (dump) [que puede encontrarse aquí](https://gist.github.com/punteroo/6185924734a9cce5b1f8688ddc2ce78b).
+```bash
+# Ejemplo con el archivo de dump adentro del sistema de archivos del contenedor de MySQL.
+$ docker exec mysql mysql -u root -p --database=taller < dump.2023-12-17.sql
 ```
