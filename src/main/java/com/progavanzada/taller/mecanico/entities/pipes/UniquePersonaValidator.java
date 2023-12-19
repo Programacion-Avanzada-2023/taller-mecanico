@@ -17,6 +17,6 @@ public class UniquePersonaValidator implements ConstraintValidator<Unique, Integ
 
     @Override
     public boolean isValid(Integer dni, ConstraintValidatorContext context) {
-        return service != null && service.repo.findByDni(dni) != null;
+        return service.repo.findByDni(dni) == null;
     }
 }
