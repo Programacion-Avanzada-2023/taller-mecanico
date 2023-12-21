@@ -19,7 +19,7 @@ public interface IServicioService {
 
     boolean borrarServicio(Servicio entity);
     
-    ServicioDto eliminarServicio(String id, ServicioDto dto);
-    
     ServicioDto crearServicio(ServicioCreateDto dto);
+
+    ServicioDto recuperarServicio(Servicio entity);
 }

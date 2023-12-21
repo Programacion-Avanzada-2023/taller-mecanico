@@ -5,6 +5,7 @@ import com.progavanzada.taller.mecanico.controller.dto.ServicioDto;
 import com.progavanzada.taller.mecanico.controller.dto.ServicioUpdateDto;
 import com.progavanzada.taller.mecanico.entities.Servicio;
 import com.progavanzada.taller.mecanico.repositories.ServicioRepository;
+import com.progavanzada.taller.mecanico.services.interfaces.IServicioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Service;
  * @author yukal
  */
 @Service
-public class ServicioService {
+public class ServicioService implements IServicioService {
     @Autowired
     public ServicioRepository repo;
     
@@ -60,6 +61,13 @@ public class ServicioService {
         this.repo.save(servicio);
         
         return this.mapServiceToDto(servicio);
-        
+    }
+
+    public ServicioDto recuperarServicio(Servicio entity) {
+        // Marcar su flag de borrado.
+        entity.eliminado = false;
+
+        this.repo.save(entity);
+        return this.mapServiceToDto(entity);
     }
 }

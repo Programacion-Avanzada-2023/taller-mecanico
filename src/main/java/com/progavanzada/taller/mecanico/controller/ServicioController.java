@@ -9,8 +9,11 @@ import com.progavanzada.taller.mecanico.services.ServicioService;
 import com.progavanzada.taller.mecanico.services.StatisticsService;
 import jakarta.validation.Valid;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -35,8 +38,11 @@ public class ServicioController {
      * @return Un listado con todas las entidades.
      */
     @GetMapping
-    public List<ServicioDto> getServicios() {
-        List<Servicio> servicios = this.service.repo.findByEliminadoFalse();
+    public List<ServicioDto> getServicios(@RequestParam(name = "eliminado", required = false) Boolean eliminado) {
+        Boolean buscarEliminados = eliminado != null && eliminado;
+
+        List<Servicio> servicios = buscarEliminados ? this.service.repo.findByEliminadoTrue()
+                : this.service.repo.findByEliminadoFalse();
 
         List<ServicioDto> serviciosDto = new ArrayList<ServicioDto>();
         for (Servicio servicio : servicios) {
@@ -52,7 +58,16 @@ public class ServicioController {
      * @return Un listado con las estadisticas.
      */
     @GetMapping(path = "/estadisticas")
-    public List<EstadisticaServicioSolicitado> getEstadisticas() {
+    public List<EstadisticaServicioSolicitado> getEstadisticas(
+            @RequestParam(name = "fechaInicio", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaInicio,
+            @RequestParam(name = "fechaFin", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaFin,
+            @RequestParam(name = "tecnico", required = false) Integer tecnico) {
+        if (fechaInicio != null && fechaFin != null)
+            return this.statisticsService.generarEstadisticaServiciosMasSolicitados(fechaInicio, fechaFin);
+
+        if (tecnico != null)
+            return this.statisticsService.generarEstadisticaServiciosMasSolicitados(tecnico);
+
         return this.statisticsService.generarEstadisticaServiciosMasSolicitados();
     }
 
@@ -98,6 +113,25 @@ public class ServicioController {
 
         // Aplicar las modificaciones.
         return this.service.actualizarServicio(body, servicio);
+    }
+
+    /**
+     * Recupera un servicio eliminado.
+     * 
+     * @param id El ID de la entidad a recuperar.
+     * @return La entidad recuperada.
+     */
+    @PatchMapping(path = "/{id}/recuperar")
+    public ServicioDto recuperarServicio(@PathVariable Integer id) {
+        // Buscar la entidad a modificar.
+        Optional<Servicio> servicio = this.service.repo.findById(id);
+
+        // Si no hay servicio, detener la ejecución y largar la excepción.
+        if (servicio.isEmpty())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "El servicio especificado no existe.", null);
+
+        // Aplicar las modificaciones.
+        return this.service.recuperarServicio(servicio.get());
     }
 
     /**

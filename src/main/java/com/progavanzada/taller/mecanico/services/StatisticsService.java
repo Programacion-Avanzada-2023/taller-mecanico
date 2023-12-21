@@ -14,6 +14,24 @@ public class StatisticsService implements IStatisticsService {
     @Autowired
     private ServicioRepository repo;
 
+    private List<EstadisticaServicioSolicitado> construirEstadisticasDesdeAnonimo(List<Object[]> objeto) {
+        List<EstadisticaServicioSolicitado> estadisticas = new ArrayList<>();
+
+        for (Object[] result : objeto) {
+            EstadisticaServicioSolicitado estadistica = new EstadisticaServicioSolicitado(
+                    (Integer) result[0], // idServicio
+                    (String) result[1], // nombreServicio
+                    (Long) result[2], // cantidadSolicitudes
+                    (Date) result[3], // fechaUltimaSolicitud
+                    (Date) result[4], // fechaPrimeraSolicitud
+                    (Long) result[5] // cantidadTecnicos
+            );
+            estadisticas.add(estadistica);
+        }
+
+        return estadisticas;
+    }
+
     @Override
     public List<EstadisticaServicioSolicitado> generarEstadisticaServiciosMasSolicitados() {
         // Con las ordenes de trabajo, escarbar los servicios asociados a cada una de
@@ -23,20 +41,24 @@ public class StatisticsService implements IStatisticsService {
         // la fecha de la última vez, la fecha de la primera vez y la cantidad de
         // clientes que lo han solicitado.
         List<Object[]> resultList = this.repo.getEstadisticaServicioSolicitado();
-        List<EstadisticaServicioSolicitado> estadisticas = new ArrayList<>();
 
-        for (Object[] result : resultList) {
-            EstadisticaServicioSolicitado estadistica = new EstadisticaServicioSolicitado(
-                (Integer) result[0],            // idServicio
-                (String) result[1],             // nombreServicio
-                (Long) result[2],            // cantidadSolicitudes
-                (Date) result[3],               // fechaUltimaSolicitud
-                (Date) result[4],               // fechaPrimeraSolicitud
-                (Long) result[5]             // cantidadTecnicos
-            );
-            estadisticas.add(estadistica);
-        }
+        return this.construirEstadisticasDesdeAnonimo(resultList);
+    }
 
-        return estadisticas;
+    @Override
+    public List<EstadisticaServicioSolicitado> generarEstadisticaServiciosMasSolicitados(
+            Date fechaInicio, Date fechaFin) {
+        List<Object[]> resultList = this.repo.getEstadisticaServicioSolicitadoRangoFecha(
+                fechaInicio, fechaFin);
+
+        return this.construirEstadisticasDesdeAnonimo(resultList);
+    }
+
+    @Override
+    public List<EstadisticaServicioSolicitado> generarEstadisticaServiciosMasSolicitados(
+            Integer tecnico) {
+        List<Object[]> resultList = this.repo.getEstadisticaServicioSolicitadoTecnico(tecnico);
+
+        return this.construirEstadisticasDesdeAnonimo(resultList);
     }
 }
