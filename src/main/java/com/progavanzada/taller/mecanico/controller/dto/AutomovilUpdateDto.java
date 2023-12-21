@@ -7,7 +7,6 @@ package com.progavanzada.taller.mecanico.controller.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.progavanzada.taller.mecanico.entities.objects.RegExPatterns;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 
 /**
  *
@@ -17,4 +16,6 @@ import jakarta.validation.constraints.Size;
 public class AutomovilUpdateDto {
     @Pattern(regexp = RegExPatterns.ArgentineLicensePlate, message = "El formato introducido de patente no es válido.")
     public String licensePlate;
+    
+    public String km;
 }

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.progavanzada.taller.mecanico.repositories;
+package com.progavanzada.taller.mecanico.services;
 
 import com.progavanzada.taller.mecanico.controller.dto.MarcaDto;
 import com.progavanzada.taller.mecanico.controller.dto.ModeloCreateDto;
@@ -10,8 +10,10 @@ import com.progavanzada.taller.mecanico.controller.dto.ModeloDto;
 import com.progavanzada.taller.mecanico.controller.dto.ModeloUpdateDto;
 import com.progavanzada.taller.mecanico.entities.Marca;
 import com.progavanzada.taller.mecanico.entities.Modelo;
+import com.progavanzada.taller.mecanico.repositories.MarcaRepository;
+import com.progavanzada.taller.mecanico.repositories.ModeloRepository;
+import com.progavanzada.taller.mecanico.services.interfaces.IModeloService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -21,7 +23,7 @@ import org.springframework.web.server.ResponseStatusException;
  * @author Usuario
  */
 @Service
-public class ModeloService implements ModeloRepositoryCustom {
+public class ModeloService implements IModeloService {
     
     @Autowired
     public ModeloRepository repo;
@@ -45,6 +47,7 @@ public class ModeloService implements ModeloRepositoryCustom {
         MarcaDto marcaDto = new MarcaDto();
         marcaDto.id = modelo.brand.id;
         marcaDto.name = modelo.brand.name;
+        marcaDto.impuestoMarca = modelo.brand.impuestoMarca;
         
         resDto.brand = marcaDto;
         return resDto;

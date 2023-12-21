@@ -1,10 +1,12 @@
-package com.progavanzada.taller.mecanico.repositories;
+package com.progavanzada.taller.mecanico.services;
 
+import com.progavanzada.taller.mecanico.controller.dto.ServicioCreateDto;
 import com.progavanzada.taller.mecanico.controller.dto.ServicioDto;
 import com.progavanzada.taller.mecanico.controller.dto.ServicioUpdateDto;
 import com.progavanzada.taller.mecanico.entities.Servicio;
+import com.progavanzada.taller.mecanico.repositories.ServicioRepository;
+import com.progavanzada.taller.mecanico.services.interfaces.IServicioService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,7 +14,7 @@ import org.springframework.stereotype.Service;
  * @author yukal
  */
 @Service
-public class ServicioService {
+public class ServicioService implements IServicioService {
     @Autowired
     public ServicioRepository repo;
     
@@ -26,17 +28,19 @@ public class ServicioService {
     public ServicioDto mapServiceToDto(Servicio entity) {
         ServicioDto dto = new ServicioDto();
         dto.id = entity.id;
+        dto.name = entity.name;
         dto.descripcion = entity.descripcion;
+        dto.precioUnitario = entity.precioUnitario;
         
         return dto;
     }
 
     //me pidio borrar los Override
-    public Servicio actualizarServicio(ServicioUpdateDto dto, Servicio entity) {
+    public ServicioDto actualizarServicio(ServicioUpdateDto dto, Servicio entity) {
         // Mappear campos a la entidad.
         entity.descripcion = dto.descripcion != null ? dto.descripcion : entity.descripcion;
 
-        return this.repo.save(entity);
+        return this.mapServiceToDto(this.repo.save(entity));
     }
     
     //me pidio borrar los Override
@@ -46,5 +50,24 @@ public class ServicioService {
 
         this.repo.save(entity);
         return true;
+    }
+    
+    public ServicioDto crearServicio(ServicioCreateDto dto) {
+        Servicio servicio = new Servicio();
+        servicio.name = dto.name;
+        servicio.descripcion = dto.descripcion;
+        servicio.precioUnitario = dto.precioUnitario;
+        
+        this.repo.save(servicio);
+        
+        return this.mapServiceToDto(servicio);
+    }
+
+    public ServicioDto recuperarServicio(Servicio entity) {
+        // Marcar su flag de borrado.
+        entity.eliminado = false;
+
+        this.repo.save(entity);
+        return this.mapServiceToDto(entity);
     }
 }

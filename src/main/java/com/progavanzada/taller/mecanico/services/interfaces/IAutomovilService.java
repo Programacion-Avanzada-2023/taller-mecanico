@@ -1,4 +1,4 @@
-package com.progavanzada.taller.mecanico.repositories;
+package com.progavanzada.taller.mecanico.services.interfaces;
 
 import com.progavanzada.taller.mecanico.controller.dto.AutomovilCreateDto;
 import com.progavanzada.taller.mecanico.controller.dto.AutomovilDto;
@@ -9,7 +9,7 @@ import com.progavanzada.taller.mecanico.entities.Automovil;
  *
  * @author Usuario
  */
-public interface AutomovilRepositoryCustom {
+public interface IAutomovilService {
     /**
      * 
      * @param dto

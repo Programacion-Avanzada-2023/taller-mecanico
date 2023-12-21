@@ -2,12 +2,13 @@ package com.progavanzada.taller.mecanico.controller;
 
 import com.progavanzada.taller.mecanico.controller.dto.PersonaUpdateDto;
 import com.progavanzada.taller.mecanico.entities.Persona;
-import com.progavanzada.taller.mecanico.repositories.PersonaService;
+import com.progavanzada.taller.mecanico.services.PersonaService;
 import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 

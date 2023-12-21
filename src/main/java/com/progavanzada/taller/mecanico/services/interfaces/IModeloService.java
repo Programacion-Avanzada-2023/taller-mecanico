@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.progavanzada.taller.mecanico.repositories;
+package com.progavanzada.taller.mecanico.services.interfaces;
 
 import com.progavanzada.taller.mecanico.controller.dto.ModeloCreateDto;
 import com.progavanzada.taller.mecanico.controller.dto.ModeloDto;
@@ -12,7 +12,7 @@ import com.progavanzada.taller.mecanico.entities.Modelo;
 /**
  * 
  */
-public interface ModeloRepositoryCustom {
+public interface IModeloService {
     /**
      * 
      * @param dto

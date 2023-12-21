@@ -7,4 +7,6 @@ package com.progavanzada.taller.mecanico.controller.dto;
 public class MarcaDto {
     public Integer id;
     public String name;
+    public String origen;
+    public float impuestoMarca;
 }

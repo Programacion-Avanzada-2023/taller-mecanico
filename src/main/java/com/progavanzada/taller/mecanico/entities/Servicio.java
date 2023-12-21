@@ -1,10 +1,8 @@
 package com.progavanzada.taller.mecanico.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.progavanzada.taller.mecanico.entities.objects.RegExPatterns;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 /**
@@ -32,11 +30,19 @@ public class Servicio {
     @NotNull
     public String descripcion;
 
+    @Column(nullable = false, length=2)
+    public float precioUnitario;
+
     /**
      * Flag que denota si la entidad fue eliminada o no.
      */
     @Column(nullable = false)
     @JsonIgnore
     public boolean eliminado = false;
+
+    public float getPrecioUnitario(){
+        return this.precioUnitario;
+    }
+
 
 }

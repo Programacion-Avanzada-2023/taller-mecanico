@@ -11,6 +11,10 @@ import jakarta.validation.constraints.Size;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class OrdenUpdateDto {
 
+    public Boolean confirmada = false;
+
     @Size(max = 512, message = "El mensaje insertado supera los 512 caractéres.")
     public String detalles;
+
+    public Integer tecnico;
 }

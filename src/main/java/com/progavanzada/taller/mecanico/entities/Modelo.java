@@ -1,15 +1,10 @@
 package com.progavanzada.taller.mecanico.entities;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.progavanzada.taller.mecanico.entities.objects.RegExPatterns;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 /**
@@ -29,8 +24,8 @@ public class Modelo {
     /**
      * El nombre legal de la persona.
      */
-    @Size(min = 4, max = 32, message = "El nombre de modelo no puede exceder los 32 caractéres en longitud.")
-    @Pattern(regexp = RegExPatterns.OnlyLetters_CI, message = "Un nombre de modelo solo puede tener letras, espacios y guiones.")
+    @Size(min = 1, max = 32, message = "El nombre de modelo no puede exceder los 32 caractéres en longitud.")
+    // @Pattern(regexp = RegExPatterns.OnlyLetters_CI, message = "Un nombre de modelo solo puede tener letras, espacios y guiones.")
     @Column(nullable = false, length = 32)
     @NotNull
     public String name;

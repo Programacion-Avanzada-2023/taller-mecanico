@@ -4,11 +4,10 @@ import com.progavanzada.taller.mecanico.controller.dto.ModeloCreateDto;
 import com.progavanzada.taller.mecanico.controller.dto.ModeloDto;
 import com.progavanzada.taller.mecanico.controller.dto.ModeloUpdateDto;
 import com.progavanzada.taller.mecanico.entities.Modelo;
-import com.progavanzada.taller.mecanico.repositories.ModeloService;
+import com.progavanzada.taller.mecanico.services.ModeloService;
 import jakarta.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -64,8 +63,8 @@ public class ModeloController {
      * @return El nuevo modelo creado.
      */
     @PostMapping
-    public ModeloDto createModelo(@Valid @RequestBody ModeloCreateDto modelo) {
-        return this.service.crearModelo(modelo);
+    public ModeloDto createModelo(@Valid @RequestBody ModeloCreateDto dto) {
+        return this.service.crearModelo(dto);
     }
     
     /**

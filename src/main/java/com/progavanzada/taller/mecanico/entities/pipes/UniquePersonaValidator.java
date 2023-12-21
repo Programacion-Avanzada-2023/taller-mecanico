@@ -1,6 +1,6 @@
 package com.progavanzada.taller.mecanico.entities.pipes;
 
-import com.progavanzada.taller.mecanico.repositories.PersonaService;
+import com.progavanzada.taller.mecanico.repositories.PersonaRepository;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class UniquePersonaValidator implements ConstraintValidator<Unique, Integer> {
 
     @Autowired
-    private PersonaService service;
+    private PersonaRepository repo;
 
     @Override
     public void initialize(Unique unique) {
@@ -17,9 +17,8 @@ public class UniquePersonaValidator implements ConstraintValidator<Unique, Integ
 
     @Override
     public boolean isValid(Integer dni, ConstraintValidatorContext context) {
-        if (service != null && service.repo.findByDni(dni) != null) {
-            return false;
-        }
-        return true;
+        Boolean isValid = repo.findByDni(dni) == null;
+
+        return isValid;
     }
 }

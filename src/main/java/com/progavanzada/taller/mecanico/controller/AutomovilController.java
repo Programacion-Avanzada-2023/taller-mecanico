@@ -4,7 +4,7 @@ import com.progavanzada.taller.mecanico.controller.dto.AutomovilCreateDto;
 import com.progavanzada.taller.mecanico.controller.dto.AutomovilDto;
 import com.progavanzada.taller.mecanico.controller.dto.AutomovilUpdateDto;
 import com.progavanzada.taller.mecanico.entities.Automovil;
-import com.progavanzada.taller.mecanico.repositories.AutomovilService;
+import com.progavanzada.taller.mecanico.services.AutomovilService;
 import jakarta.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +24,7 @@ public class AutomovilController {
     @Autowired
     private AutomovilService service;
 
-        /**
+    /**
      * Busca todos los automoviles del dominio.
      *
      * @return Un listado con todas las entidades.
@@ -32,12 +32,12 @@ public class AutomovilController {
     @GetMapping
     public List<AutomovilDto> getAutomoviles() {
         List<Automovil> automoviles = this.service.repo.findByEliminadoFalse();
-        
+
         List<AutomovilDto> automovilesDto = new ArrayList<AutomovilDto>();
         for (Automovil automovil : automoviles) {
             automovilesDto.add(this.service.mapAutomovilToDto(automovil));
         }
-        
+
         return automovilesDto;
     }
 
@@ -107,4 +107,3 @@ public class AutomovilController {
         return this.service.borrarAutomovil(automovil);
     }
 }
-
