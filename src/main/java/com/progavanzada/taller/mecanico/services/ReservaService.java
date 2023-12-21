@@ -106,6 +106,14 @@ public class ReservaService implements IReservaService {
         if (cliente == null)
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "El cliente especificado no existe.", null);
 
+        // Validar las fechas.
+        Timestamp fechaInicio = Timestamp.valueOf(dto.fechaInicio);
+        Timestamp fechaFin = Timestamp.valueOf(dto.fechaFin);
+
+        if (fechaInicio.getTime() < fechaFin.getTime())
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "La fecha de inicio debe ser menor a la fecha de fin.", null);
+
         // Guardar entidad.
         Reserva reserva = new Reserva();
         reserva.client = cliente;

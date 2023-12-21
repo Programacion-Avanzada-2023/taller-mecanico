@@ -1,12 +1,8 @@
 package com.progavanzada.taller.mecanico.services;
 
 import com.progavanzada.taller.mecanico.controller.dto.EstadisticaServicioSolicitado;
-import com.progavanzada.taller.mecanico.entities.objects.Constants;
 import com.progavanzada.taller.mecanico.repositories.ServicioRepository;
 import com.progavanzada.taller.mecanico.services.interfaces.IStatisticsService;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.Query;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
