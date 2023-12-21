@@ -111,8 +111,8 @@ public class ReservaControllerTest {
         Map<String, Object> body = new HashMap<>();
         body.put("client", 1);
         body.put("tecnico", 1);
-        body.put("fechaInicio", fechaInicio.toString());
-        body.put("fechaFin", fechaFin.toString());
+        body.put("fechaInicio", fechaInicio);
+        body.put("fechaFin", fechaFin);
 
         this.mvc.perform(
                 // Hacer el POST de creación.
@@ -140,8 +140,8 @@ public class ReservaControllerTest {
         Map<String, Object> body = new HashMap<>();
         body.put("client", 1);
         body.put("tecnico", 1);
-        body.put("fechaInicio", fechaInicio.toString());
-        body.put("fechaFin", fechaFin.toString());
+        body.put("fechaInicio", fechaInicio);
+        body.put("fechaFin", fechaFin);
 
         this.mvc.perform(
                 // Hacer el POST de creación.
@@ -170,8 +170,8 @@ public class ReservaControllerTest {
         Map<String, Object> body = new HashMap<>();
         body.put("client", 53);
         body.put("tecnico", 1);
-        body.put("fechaInicio", fechaInicio.toString());
-        body.put("fechaFin", fechaFin.toString());
+        body.put("fechaInicio", fechaInicio);
+        body.put("fechaFin", fechaFin);
 
         this.mvc.perform(
                 // Hacer el POST de creación.
@@ -201,8 +201,8 @@ public class ReservaControllerTest {
         Map<String, Object> body = new HashMap<>();
         body.put("client", 53);
         body.put("tecnico", 1);
-        body.put("fechaInicio", fechaInicio.toString());
-        body.put("fechaFin", fechaFin.toString());
+        body.put("fechaInicio", fechaInicio);
+        body.put("fechaFin", fechaFin);
 
         this.mvc.perform(
                 // Hacer el POST de creación.
