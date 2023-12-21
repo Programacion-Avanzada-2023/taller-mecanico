@@ -31,7 +31,7 @@ public class Automovil {
     /**
      * El dueño de este vehículo. Debe ser siempre una persona de tipo cliente.
      */
-    @OneToOne(targetEntity = Cliente.class, optional = false)
+    @ManyToOne(targetEntity = Cliente.class, optional = false)
     @JoinColumn(name = "cliente_id")
     @NotNull
     public Cliente client;
@@ -43,6 +43,11 @@ public class Automovil {
     @Column(nullable = false, length = 8)
     @NotNull
     public String licensePlate;
+    
+    //revisar regex
+    @Column(nullable = false, length = 8)
+    @NotNull
+    public Integer km;
    
     /**
      * Flag que denota si la entidad fue eliminada o no.

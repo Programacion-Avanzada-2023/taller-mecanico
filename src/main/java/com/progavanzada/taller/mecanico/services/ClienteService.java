@@ -1,13 +1,14 @@
-package com.progavanzada.taller.mecanico.repositories;
+package com.progavanzada.taller.mecanico.services;
 
 import com.progavanzada.taller.mecanico.controller.dto.ClienteCreateDto;
 import com.progavanzada.taller.mecanico.controller.dto.ClienteDto;
-import com.progavanzada.taller.mecanico.controller.dto.ClienteUpdateDto;
 import com.progavanzada.taller.mecanico.controller.dto.PersonaDto;
 import com.progavanzada.taller.mecanico.entities.Cliente;
 import com.progavanzada.taller.mecanico.entities.Persona;
+import com.progavanzada.taller.mecanico.repositories.ClienteRepository;
+import com.progavanzada.taller.mecanico.repositories.PersonaRepository;
+import com.progavanzada.taller.mecanico.services.interfaces.IClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -17,7 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
  * @author Guido
  */
 @Service
-public class ClienteService implements ClienteRepositoryCustom {
+public class ClienteService implements IClienteService {
 
     @Autowired
     public ClienteRepository repo;

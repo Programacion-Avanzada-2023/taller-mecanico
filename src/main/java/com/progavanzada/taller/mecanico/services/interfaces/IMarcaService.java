@@ -1,12 +1,14 @@
-package com.progavanzada.taller.mecanico.repositories;
+package com.progavanzada.taller.mecanico.services.interfaces;
 
+import com.progavanzada.taller.mecanico.controller.dto.MarcaCreateDto;
+import com.progavanzada.taller.mecanico.controller.dto.MarcaDto;
 import com.progavanzada.taller.mecanico.controller.dto.MarcaUpdateDto;
 import com.progavanzada.taller.mecanico.entities.Marca;
 
 /**
  * Métodos personalizados que debe integrar el repositorio de Marca.
  */
-public interface MarcaRepositoryCustom {
+public interface IMarcaService {
 
     /**
      * Actualiza los campos de una marca aplicando el patrón DTO.
@@ -16,7 +18,7 @@ public interface MarcaRepositoryCustom {
      *
      * @return La Marca con sus campos modificados.
      */
-    Marca actualizarMarca(MarcaUpdateDto dto, Marca entity);
+    MarcaDto actualizarMarca(MarcaUpdateDto dto, Marca entity);
 
     /**
      * Marca una entidad de marca como borrada.
@@ -26,4 +28,8 @@ public interface MarcaRepositoryCustom {
      * @return Verdadero si fue borrada.
      */
     boolean borrarMarca(Marca entity);
+    
+    MarcaDto eliminarMarca(String id, MarcaDto dto);
+    
+    MarcaDto crearMarca(MarcaCreateDto dto);
 }

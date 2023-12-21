@@ -1,16 +1,17 @@
-package com.progavanzada.taller.mecanico.repositories;
+package com.progavanzada.taller.mecanico.services;
 
 import com.progavanzada.taller.mecanico.controller.dto.PersonaUpdateDto;
 import com.progavanzada.taller.mecanico.entities.Persona;
+import com.progavanzada.taller.mecanico.repositories.PersonaRepository;
+import com.progavanzada.taller.mecanico.services.interfaces.IPersonaService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 /**
  * Implementación de los métodos custom para el repositorio.
  */
 @Service
-public class PersonaService implements PersonaRepositoryCustom {
+public class PersonaService implements IPersonaService {
 
     @Autowired
     public PersonaRepository repo;

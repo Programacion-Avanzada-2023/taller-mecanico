@@ -5,7 +5,7 @@ import com.progavanzada.taller.mecanico.controller.dto.OrdenDto;
 import com.progavanzada.taller.mecanico.controller.dto.OrdenServicioDto;
 import com.progavanzada.taller.mecanico.controller.dto.OrdenUpdateDto;
 import com.progavanzada.taller.mecanico.entities.OrdenDeTrabajo;
-import com.progavanzada.taller.mecanico.repositories.OrdenService;
+import com.progavanzada.taller.mecanico.services.OrdenService;
 import jakarta.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +37,11 @@ public class OrdenController {
         return ordenesDto;
     }
 
+    @GetMapping("/cliente/{clienteId}")
+    public List<OrdenDto> getOrdenesByCliente(@PathVariable Integer clienteId) {
+        return this.service.buscarOrdenPorCliente(clienteId);
+    }
+    
     @GetMapping("/{id}")
     public OrdenDto getOrden(@PathVariable("id") String id) {
         return this.service.mapOrdenToDto(this.service.repo.findByIdAndEliminadoFalse(id));

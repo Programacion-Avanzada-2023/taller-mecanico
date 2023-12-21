@@ -12,6 +12,8 @@ import org.springframework.stereotype.Repository;
 public interface MarcaRepository extends JpaRepository<Marca, Integer> {
 
     public List<Marca> findByEliminadoFalse();
+    
+    public List<Marca> findByEliminadoFalseAndIdIn(List<Integer> ids);
 
     public Marca findByIdAndEliminadoFalse(Integer id);
 }

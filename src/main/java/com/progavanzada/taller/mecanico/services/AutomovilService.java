@@ -1,14 +1,15 @@
-package com.progavanzada.taller.mecanico.repositories;
+package com.progavanzada.taller.mecanico.services;
 
 import com.progavanzada.taller.mecanico.controller.dto.AutomovilCreateDto;
 import com.progavanzada.taller.mecanico.controller.dto.AutomovilDto;
 import com.progavanzada.taller.mecanico.controller.dto.AutomovilUpdateDto;
 import com.progavanzada.taller.mecanico.controller.dto.ClienteDto;
-import com.progavanzada.taller.mecanico.controller.dto.MarcaDto;
 import com.progavanzada.taller.mecanico.controller.dto.ModeloDto;
 import com.progavanzada.taller.mecanico.entities.Automovil;
 import com.progavanzada.taller.mecanico.entities.Cliente;
 import com.progavanzada.taller.mecanico.entities.Modelo;
+import com.progavanzada.taller.mecanico.repositories.AutomovilRepository;
+import com.progavanzada.taller.mecanico.services.interfaces.IAutomovilService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
  * @author Usuario
  */
 @Service
-public class AutomovilService implements AutomovilRepositoryCustom {
+public class AutomovilService implements IAutomovilService {
 
     @Autowired
     public AutomovilRepository repo;
@@ -46,6 +47,7 @@ public class AutomovilService implements AutomovilRepositoryCustom {
         automovil.client = cliente;
         automovil.licensePlate = entity.licensePlate;
         automovil.model = modelo;
+        automovil.km = entity.km;
 
         return automovil;
     }
@@ -89,6 +91,7 @@ public class AutomovilService implements AutomovilRepositoryCustom {
         automovil.client = cliente;
         automovil.model = modelo;
         automovil.licensePlate = dto.licensePlate;
+        automovil.km = dto.km;
 
         this.repo.save(automovil);
 

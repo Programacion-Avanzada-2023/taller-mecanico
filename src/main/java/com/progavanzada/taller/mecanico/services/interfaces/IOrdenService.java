@@ -1,21 +1,23 @@
-package com.progavanzada.taller.mecanico.repositories;
+package com.progavanzada.taller.mecanico.services.interfaces;
 
 import com.progavanzada.taller.mecanico.controller.dto.OrdenCreateDto;
 import com.progavanzada.taller.mecanico.controller.dto.OrdenDto;
 import com.progavanzada.taller.mecanico.controller.dto.OrdenServicioDto;
 import com.progavanzada.taller.mecanico.controller.dto.OrdenUpdateDto;
+import com.progavanzada.taller.mecanico.entities.CambioEstadoOrden;
 import com.progavanzada.taller.mecanico.entities.OrdenDeTrabajo;
+import java.util.List;
 
 /**
  *
  * @author yukal
  */
-public interface OrdenRepositoryCustom {
+public interface IOrdenService {
 
     /**
      * Actualiza los campos de una marca aplicando el patrón DTO.
      *
-     * @param dto El DTO a mappear contra la entidad.
+     * @param dto    El DTO a mappear contra la entidad.
      * @param entity La entidad a actualizar.
      *
      * @return La Orden con sus campos modificados.
@@ -34,7 +36,7 @@ public interface OrdenRepositoryCustom {
     /**
      * Agrega un nuevo servicio a una orden de trabajo existente.
      *
-     * @param id El UUID de la orden a la que se agregará el servicio.
+     * @param id  El UUID de la orden a la que se agregará el servicio.
      * @param dto DTO de agregado de servicio.
      *
      * @return La orden de trabajo con el nuevo servicio agregado.
@@ -44,7 +46,7 @@ public interface OrdenRepositoryCustom {
     /**
      * Elimina un servicio existente de una orden de trabajo.
      *
-     * @param id El UUID de la orden a la que se le eliminará el servicio.
+     * @param id  El UUID de la orden a la que se le eliminará el servicio.
      * @param dto DTO de eliminado de servicio.
      *
      * @return La orden de trabajo con el servicio eliminado de la lista.
@@ -60,4 +62,30 @@ public interface OrdenRepositoryCustom {
      */
     OrdenDto crearOrden(OrdenCreateDto dto);
 
+    /**
+     * Busca órdenes de trabajo basadas en el técnico asignado a ellas.
+     *
+     * @param id El identificador único del técnico.
+     *
+     * @return La lista de órdenes de trabajo asignadas a este técnico.
+     */
+    // List<OrdenDeTrabajo> buscarOrdenPorTecnico(Integer id);
+
+    /**
+     * Busca los cambios de estado de una orden de trabajo.
+     *
+     * @param id El identificador único de la orden de trabajo.
+     * 
+     * @return La lista de cambios de estado de la orden de trabajo.
+     */
+    List<CambioEstadoOrden> obtenerCambiosDeEstadoOrden(String id);
+
+    /**
+     * Busca órdenes de trabajo basadas en el cliente que las solicitó.
+     *
+     * @param id El identificador único del cliente.
+     *
+     * @return La lista de órdenes de trabajo solicitadas por este cliente.
+     */
+    List<OrdenDto> buscarOrdenPorCliente(Integer id);
 }

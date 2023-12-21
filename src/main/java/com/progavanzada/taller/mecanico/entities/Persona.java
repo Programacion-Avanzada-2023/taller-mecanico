@@ -56,7 +56,7 @@ public class Persona {
     @Min(value = 1_000_000)
     @Max(value = 999_999_999)
     @Column(nullable = false, unique = true)
-    @Unique(message = "Ya existe una persona con ese DNI.")
+    //@Unique(message = "Ya existe una persona con ese DNI.")
     @NotNull
     public Integer dni;
 

@@ -16,4 +16,5 @@ public interface OrdenRepository extends JpaRepository<OrdenDeTrabajo, String> {
 
     public OrdenDeTrabajo findByIdAndEliminadoFalse(String id);
 
+    public List<OrdenDeTrabajo> findByAutomovilClientIdAndEliminadoFalse(Integer clienteId);
 }

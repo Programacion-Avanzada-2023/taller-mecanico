@@ -1,9 +1,12 @@
 package com.progavanzada.taller.mecanico.controller;
 
+import com.progavanzada.taller.mecanico.controller.dto.MarcaCreateDto;
+import com.progavanzada.taller.mecanico.controller.dto.MarcaDto;
 import com.progavanzada.taller.mecanico.controller.dto.MarcaUpdateDto;
 import com.progavanzada.taller.mecanico.entities.Marca;
-import com.progavanzada.taller.mecanico.repositories.MarcaService;
+import com.progavanzada.taller.mecanico.services.MarcaService;
 import jakarta.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,8 +29,15 @@ public class MarcaController {
      * @return Un listado con todas las entidades.
      */
     @GetMapping
-    public List<Marca> getMarcas() {
-        return this.service.repo.findByEliminadoFalse();
+    public List<MarcaDto> getMarcas() {
+        List<Marca> marcas = this.service.repo.findByEliminadoFalse();
+
+        List<MarcaDto> marcasDto = new ArrayList<MarcaDto>();
+        for (Marca marca : marcas) {
+            marcasDto.add(this.service.mapMarcaToDto(marca));
+        }
+
+        return marcasDto;
     }
 
     /**
@@ -38,10 +48,10 @@ public class MarcaController {
      * @return La entidad, si no, null.
      */
     @GetMapping(path = "/{id}")
-    public Marca getMarca(@PathVariable Integer id) {
-        return this.service.repo.findByIdAndEliminadoFalse(id);
+    public MarcaDto getMarca(@PathVariable("id") Integer id) {
+        return this.service.mapMarcaToDto(this.service.repo.findByIdAndEliminadoFalse(id));
     }
-   
+
     /**
      * Crea una nueva Marca acorde al tipado de la entidad.
      *
@@ -50,10 +60,14 @@ public class MarcaController {
      * @return La nueva marca creada.
      */
     @PostMapping
-    public Marca createMarca(@Valid @RequestBody Marca marca) {
-        return this.service.repo.save(marca);
+    public MarcaDto createMarca(@Valid @RequestBody MarcaCreateDto dto) {
+        if (dto.impuestoMarca > 100 || dto.impuestoMarca < 0)
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "El impuesto de una marca no puede superar el 100% ni ser menor a 0%.", null);
+
+        return this.service.crearMarca(dto);
     }
-    
+
     /**
      * Modifica los campos de una Marca existente.
      *
@@ -62,18 +76,18 @@ public class MarcaController {
      * @return La entidad modificada.
      */
     @PatchMapping(path = "/{id}")
-    public Marca updateMarca(@PathVariable Integer id, @Valid @RequestBody MarcaUpdateDto body) {
+    public MarcaDto updateMarca(@PathVariable("id") Integer id, @Valid @RequestBody MarcaUpdateDto body) {
         // Buscar la entidad a modificar.
         Marca marca = this.service.repo.findByIdAndEliminadoFalse(id);
-        
+
         // Si no hay marca, detener la ejecución y largar la excepción.
         if (marca == null)
-           throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La marca especificada no existe.", null);
-        
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La marca especificada no existe.", null);
+
         // Aplicar las modificaciones.
         return this.service.actualizarMarca(body, marca);
     }
-   
+
     /**
      * Marca el borrado de una entidad de Marca.
      *
@@ -85,11 +99,11 @@ public class MarcaController {
     public boolean deleteMarca(@PathVariable Integer id) {
         // Buscar la entidad a borrar.
         Marca marca = this.service.repo.findByIdAndEliminadoFalse(id);
-        
+
         // Si no hay marca, detener la ejecución y largar la excepción.
         if (marca == null)
-           throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La marca especificada no existe.", null);
-        
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La marca especificada no existe.", null);
+
         // Marcar como eliminada.
         return this.service.borrarMarca(marca);
     }
